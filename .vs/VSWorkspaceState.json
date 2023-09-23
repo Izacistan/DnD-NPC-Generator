@@ -1,6 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\DnD-NPC-Generator",
+    "\\DnD-NPC-Generator\\Controllers",
+    "\\DnD-NPC-Generator\\Models",
+    "\\DnD-NPC-Generator\\obj",
+    "\\DnD-NPC-Generator\\Views"
   ],
+  "SelectedNode": "\\DnD-NPC-Generator\\Models\\ErrorViewModel.cs",
   "PreviewInSolutionExplorer": false
 }
