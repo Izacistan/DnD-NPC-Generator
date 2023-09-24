@@ -51,7 +51,7 @@ namespace DnD_NPC_Generator.Models
         public bool IPAcrobatics { get; set; }
         public bool IPAnimalHandling { get; set; }
         public bool IPArcana { get; set; }
-        public bool IPAtheltics { get; set; }
+        public bool IPAthletic { get; set; }
         public bool IPDeception { get; set; }
         public bool IPHistory { get; set; }
         public bool IPInsight { get; set; }

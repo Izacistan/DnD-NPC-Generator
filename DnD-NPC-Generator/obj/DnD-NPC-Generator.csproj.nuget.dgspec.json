@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\DMACC\\Adv C#\\DnD-NPC-Generator\\DnD-NPC-Generator\\DnD-NPC-Generator.csproj": {}
+    "C:\\Users\\kumar\\Source\\Repos\\DnD-NPC-Generator\\DnD-NPC-Generator\\DnD-NPC-Generator.csproj": {}
   },
   "projects": {
-    "E:\\DMACC\\Adv C#\\DnD-NPC-Generator\\DnD-NPC-Generator\\DnD-NPC-Generator.csproj": {
+    "C:\\Users\\kumar\\Source\\Repos\\DnD-NPC-Generator\\DnD-NPC-Generator\\DnD-NPC-Generator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\DMACC\\Adv C#\\DnD-NPC-Generator\\DnD-NPC-Generator\\DnD-NPC-Generator.csproj",
+        "projectUniqueName": "C:\\Users\\kumar\\Source\\Repos\\DnD-NPC-Generator\\DnD-NPC-Generator\\DnD-NPC-Generator.csproj",
         "projectName": "DnD-NPC-Generator",
-        "projectPath": "E:\\DMACC\\Adv C#\\DnD-NPC-Generator\\DnD-NPC-Generator\\DnD-NPC-Generator.csproj",
-        "packagesPath": "C:\\Users\\Trevor\\.nuget\\packages\\",
-        "outputPath": "E:\\DMACC\\Adv C#\\DnD-NPC-Generator\\DnD-NPC-Generator\\obj\\",
+        "projectPath": "C:\\Users\\kumar\\Source\\Repos\\DnD-NPC-Generator\\DnD-NPC-Generator\\DnD-NPC-Generator.csproj",
+        "packagesPath": "C:\\Users\\kumar\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kumar\\Source\\Repos\\DnD-NPC-Generator\\DnD-NPC-Generator\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Trevor\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kumar\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -58,7 +58,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }
