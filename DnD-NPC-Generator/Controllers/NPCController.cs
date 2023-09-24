@@ -8,5 +8,10 @@ namespace DnD_NPC_Generator.Controllers
         {
             return View();
         }
+
+        public IActionResult Edit()
+        {
+            return View();
+        }
     }
 }
