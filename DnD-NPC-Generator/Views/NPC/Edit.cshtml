@@ -40,8 +40,11 @@
 
             <!-- AC -->
             <div id="form-ac" class="form-group">
-                <label asp-for="Name" class="text-center">AC</label>
-                <input class="form-control" asp-for="AC" />
+                <label asp-for="AC" class="text-center">AC</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fa-solid fa-shield-halved"></i> </span>
+                    <input type="number" class="form-control" asp-for="AC" />
+                </div>
             </div>
         </div>
     </div>
