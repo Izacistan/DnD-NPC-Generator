@@ -70,7 +70,7 @@ namespace DnD_NPC_Generator.Migrations
             migrationBuilder.InsertData(
                 table: "NPCs",
                 columns: new[] { "NPCId", "AC", "ChaMod", "ChaSave", "ChaScore", "Class", "ConMod", "ConSave", "ConScore", "DexMod", "DexSave", "DexScore", "HitDie", "HitDieCount", "HitPoints", "IPAcrobatics", "IPAnimalHandling", "IPArcana", "IPAthletic", "IPDeception", "IPHistory", "IPInsight", "IPIntimidation", "IPInvestigation", "IPMedicine", "IPNature", "IPPerception", "IPPerformance", "IPPersuasion", "IPReligion", "IPSleightOfHand", "IPStealth", "IPSurvival", "IntMod", "IntSave", "IntScore", "Level", "Name", "ProfMod", "Race", "StrMod", "StrSave", "StrScore", "WisMod", "WisSave", "WisScore" },
-                values: new object[] { 1, 0, 0, 0, 0, "Barbarian", 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, 0, 0, 0, 0, "Test NPC", 0, "Human", 0, 0, 0, 0, 0, 0 });
+                values: new object[] { 1, 0, 0, 0, 0, "Barbarian", 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, 0, 0, 0, 1, "Test NPC", 0, "Human", 0, 0, 0, 0, 0, 0 });
         }
 
         /// <inheritdoc />

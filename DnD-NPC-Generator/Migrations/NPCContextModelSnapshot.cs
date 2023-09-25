@@ -210,7 +210,7 @@ namespace DnD_NPC_Generator.Migrations
                             IntMod = 0,
                             IntSave = 0,
                             IntScore = 0,
-                            Level = 0,
+                            Level = 1,
                             Name = "Test NPC",
                             ProfMod = 0,
                             Race = "Human",

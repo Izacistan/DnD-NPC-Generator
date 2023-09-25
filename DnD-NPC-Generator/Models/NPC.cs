@@ -19,6 +19,9 @@ namespace DnD_NPC_Generator.Models
         public int HitPoints { get; set; }
         public int HitDie { get; set; }
         public int HitDieCount { get; set; }
+
+        [Required(ErrorMessage = "Please enter a level.")]
+        [Range(0, 20, ErrorMessage = "The NPC level must be between 1 and 20 (or 0 if you'd like it to be random).")]
         public int Level { get; set; }
         public int AC { get; set; }
         public int ProfMod { get; set; } //Proficiency Modifier
