@@ -6,7 +6,7 @@
     Updated: 9/24/23
 -->
 <h1>NPC Generator</h1>
-<form asp-action="Index" method="post">
+<form asp-action="Edit" method="post">
     <!--
         STILL NEED TO VALIDATION TO NPC CLASS
     -->
@@ -326,6 +326,8 @@
 
         </div>
     </fieldset>
+
+    <input type="hidden" asp-for="NPCId" />
 
     <button type="submit" class="btn btn-primary w-100">Generate</button>
 </form>

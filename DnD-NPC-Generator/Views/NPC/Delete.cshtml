@@ -1,0 +1,14 @@
+﻿@model NPC
+@{
+    ViewData["Title"] = "Delete NPC";
+}
+
+<h2>Confirm Deletion</h2>
+<h3>Are you sure you'd like to delete <em>@Model.Name</em>?</h3>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="NPCId" />
+
+    <button type="submit" class="btn btn-primary">Delete</button>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Cancel</a>
+</form>

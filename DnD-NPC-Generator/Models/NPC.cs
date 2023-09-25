@@ -6,8 +6,15 @@ namespace DnD_NPC_Generator.Models
     public class NPC
     {
         //General Information
+        public int NPCId { get; set; }
+
+        [Required(ErrorMessage = "Please enter a name.")]
         public string Name { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Please enter a class.")]
         public string Class { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Please enter a race.")]
         public string Race { get; set; } = string.Empty;
         public int HitPoints { get; set; }
         public int HitDie { get; set; }
