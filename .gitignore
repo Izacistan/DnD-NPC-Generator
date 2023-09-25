@@ -3,13 +3,6 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
-DnD-NPC-Generator/.vs/
-DnD-NPC-Generator/bin/
-DnD-NPC-Generator/obj/
-*/.vs/
-*/bin/
-*/obj/
-
 # User-specific files
 *.rsuser
 *.suo
