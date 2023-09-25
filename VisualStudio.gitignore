@@ -6,6 +6,9 @@
 DnD-NPC-Generator/.vs/
 DnD-NPC-Generator/bin/
 DnD-NPC-Generator/obj/
+*/.vs/
+*/bin/
+*/obj/
 
 # User-specific files
 *.rsuser
