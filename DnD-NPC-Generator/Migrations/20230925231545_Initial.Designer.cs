@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DnD_NPC_Generator.Migrations
 {
     [DbContext(typeof(NPCContext))]
-    [Migration("20230925021246_Initial")]
+    [Migration("20230925231545_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -213,7 +213,7 @@ namespace DnD_NPC_Generator.Migrations
                             IntMod = 0,
                             IntSave = 0,
                             IntScore = 0,
-                            Level = 0,
+                            Level = 1,
                             Name = "Test NPC",
                             ProfMod = 0,
                             Race = "Human",

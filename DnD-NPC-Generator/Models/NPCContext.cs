@@ -18,7 +18,8 @@ namespace DnD_NPC_Generator.Models
                     NPCId = 1,
                     Name = "Test NPC",
                     Class = "Barbarian",
-                    Race = "Human"
+                    Race = "Human",
+                    Level = 1
                 }
             );
         }
