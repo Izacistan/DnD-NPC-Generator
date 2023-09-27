@@ -1,18 +1,23 @@
 ﻿@model NPC
-
+@section Scripts {
+    <script src="~/js/npc-edit-validation.js"></script>
+}
 <!-- 
     This is the form to generate a NPC based on the NPC model
 
-    Updated: 9/24/23
+    Updated: 9/26/23
 -->
-<h1>NPC Generator</h1>
+<h1>@ViewBag.Action Character</h1>
 <form asp-action="Edit" method="post">
     <!--
         STILL NEED TO VALIDATION TO NPC CLASS
     -->
-    <p>
-        <small class="form-text text-muted">Leave field empty for random</small>
-    </p>
+    @if(ViewBag.Action == "Generate")
+    {
+        <p>
+            <small class="form-text text-muted">Make field 0 for random</small>
+        </p>
+    }
 
     <div class="d-flex justify-content-between">
         <!-- NAME -->
@@ -27,7 +32,7 @@
                 <label asp-for="Level">Level</label>
                 <div class="input-group">
                     <span class="input-group-text">Lv. </span>
-                    <input type="number" class="form-control" asp-for="Level" />
+                    <input name="Level" type="number" class="form-control" asp-for="Level" />
                 </div>
             </div>
 
@@ -35,7 +40,7 @@
             <!-- tied to level so can automate with js -->
             <div id="form-prof" class="form-group">
                 <label asp-for="ProfMod" class="text-center">Proficiency Bonus</label>
-                <input type="number" class="form-control" asp-for="ProfMod" readonly />
+                <input name="proBonus" type="number" class="form-control" asp-for="ProfMod" readonly />
             </div>
 
             <!-- AC -->
@@ -132,22 +137,22 @@
                     <tr>
                         <td scope="row">Mod</td>
                         <td>
-                            <input type="number" asp-for="StrMod"  />
+                            <input type="number" readonly asp-for="StrMod"  />
                         </td>
                         <td>
-                            <input type="number" asp-for="DexMod"  />
+                            <input type="number" readonly asp-for="DexMod"  />
                         </td>
                         <td>
-                            <input type="number" asp-for="ConMod"  />
+                            <input type="number" readonly asp-for="ConMod"  />
                         </td>
                         <td>
-                            <input type="number" asp-for="IntMod"  />
+                            <input type="number" readonly asp-for="IntMod"  />
                         </td>
                         <td>
-                            <input type="number" asp-for="WisMod"  />
+                            <input type="number" readonly asp-for="WisMod"  />
                         </td>
                         <td>
-                            <input type="number" asp-for="ChaMod"  />
+                            <input type="number" readonly asp-for="ChaMod"  />
                         </td>
                     </tr>
                     <!--Saves-->
