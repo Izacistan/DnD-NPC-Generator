@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/DnD_NPC_Generator.styles.css" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
     <header>
@@ -28,7 +29,10 @@
 
                         <!-- REMOVE LATER -->
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="NPC" asp-action="Index">View NPCs</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="NPC" asp-action="Index">View NPCs List</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="NPC" asp-action="Display">View NPCs Data</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>

@@ -1,0 +1,150 @@
+﻿@model NPCView
+@section Styles {
+    <link rel="stylesheet" href="~/css/npc-view.css" />"
+}
+@{ 
+    string GetModString(int mod)
+    {
+        if(mod >= 0)
+        {
+            return "+ " + mod;
+        }
+        else
+        {
+            return mod.ToString();
+        }
+    }
+
+    void profBonus(NPC npc, string name, string baseAbi)
+    {
+        bool skill = (bool)typeof(NPC).GetProperty("IP" + name).GetValue(npc);
+        int abi = (int)typeof(NPC).GetProperty(baseAbi + "Mod").GetValue(npc);
+        if (skill)
+        {
+            <li class="skill list-group-item border border-dark border-4">
+                <span>@splitCamelCase(name)</span>
+                <span>@GetModString(abi + npc.ProfMod)</span>
+            </li>
+        }
+        else
+        {
+            <li class="skill list-group-item border border-dark-subtle border-4">
+                <span>@splitCamelCase(name)</span>
+                <span>@GetModString(abi)</span>
+            </li>
+        }
+    }
+
+    string splitCamelCase(string str)
+    {
+        return System.Text.RegularExpressions.Regex.Replace(str, "([A-Z])", " $1", System.Text.RegularExpressions.RegexOptions.Compiled).Trim();
+    }
+}
+    
+<h1>NPC's List</h1>
+<div id="npc-cards">
+    @foreach (var npc in Model.NPCs)
+    {
+        <div class="card">
+            <div class="card-header d-flex justify-content-lg-between align-items-baseline">
+                <h1 class="text-lg-dark">@npc.Name</h1>
+                <h3 class="text-secondary">@npc.Class</h3>
+                <h3 class="text-secondary">
+                    Lv. @npc.Level
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-around">
+                    <p class="text-tertiary">@npc.Race</p>
+                    <p class="lime-text"><i class="fa-solid fa-shield-halved"></i> @npc.AC</p>
+                    <p class="red-text"><i class="fa-solid fa-heart"></i> @npc.HitPoints</p>
+                </div>
+                <table class="table table-borderless align-middle text-center">
+                    <thead>
+                        <tr>
+                            <td>STR</td>
+                            <td>DEX</td>
+                            <td>CON</td>
+                            <td>INT</td>
+                            <td>WIS</td>
+                            <td>CHA</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class ="h2">
+                            <td>@GetModString(npc.StrMod)</td>
+                            <td>@GetModString(npc.DexMod)</td>
+                            <td>@GetModString(npc.ConMod)</td>
+                            <td>@GetModString(npc.IntMod)</td>
+                            <td>@GetModString(npc.WisMod)</td>
+                            <td>@GetModString(npc.ChaMod)</td>
+                        </tr>
+                        <tr class="text-secondary">
+                            <td>@npc.StrScore</td>
+                            <td>@npc.DexScore</td>
+                            <td>@npc.ConScore</td>
+                            <td>@npc.IntScore</td>
+                            <td>@npc.WisScore</td>
+                            <td>@npc.ChaScore</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-grid gap-2 p-0">
+                    <a class="btn btn-primary text-center" data-bs-toggle="collapse" href="#save-data" role="button">Saves</a>
+                    <table id="save-data" class="table align-middle text-center collapse">
+                        <thead>
+                            <tr>
+                                <td>STR</td>
+                                <td>DEX</td>
+                                <td>CON</td>
+                                <td>INT</td>
+                                <td>WIS</td>
+                                <td>CHA</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@GetModString(npc.StrSave)</td>
+                                <td>@GetModString(npc.DexSave)</td>
+                                <td>@GetModString(npc.ConSave)</td>
+                                <td>@GetModString(npc.IntSave)</td>
+                                <td>@GetModString(npc.WisSave)</td>
+                                <td>@GetModString(npc.ChaSave)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </li>
+                <li class="list-group-item d-grid gap-2 p-0">
+                    <a class="btn btn-primary text-center" data-bs-toggle="collapse" href="#prof-data" role="button">Skills</a>
+                    <div id="prof-data" class=" collapse">
+                        <ul class="list-group list-group-horizontal flex-wrap">
+                        @{
+                            profBonus(npc, "Acrobatics", "Dex");
+                            profBonus(npc, "AnimalHandling", "Wis");
+                            profBonus(npc, "Arcana", "Int");
+                            profBonus(npc, "Athletic", "Str");
+                            profBonus(npc, "Deception", "Cha");
+                            profBonus(npc, "History", "Int");
+                            profBonus(npc, "Insight", "Wis");
+                            profBonus(npc, "Intimidation", "Cha");
+                            profBonus(npc, "Investigation", "Int");
+                            profBonus(npc, "Medicine", "Wis");
+                            profBonus(npc, "Nature", "Int");
+                            profBonus(npc, "Perception", "Wis");
+                            profBonus(npc, "Performance", "Cha");
+                            profBonus(npc, "Persuasion", "Cha");
+                            profBonus(npc, "Religion", "Int");
+                            profBonus(npc, "SleightOfHand", "Dex");
+                            profBonus(npc, "Stealth", "Dex");
+                            profBonus(npc, "Survival", "Wis");
+                        }
+                        </ul>
+                    </div>   
+                </li>    
+            </ul>
+        </div>
+        }
+</div>
