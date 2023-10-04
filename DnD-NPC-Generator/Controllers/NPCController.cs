@@ -68,5 +68,15 @@ namespace DnD_NPC_Generator.Controllers
             context.SaveChanges();
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public IActionResult Display()
+        {
+            //Next line should be coming from session storage
+            List<NPC> NPCs = context.NPCs.ToList();
+            NPCView nPCView = new NPCView();
+            nPCView.NPCs = NPCs;
+
+            return View(nPCView);
+        }
     }
 }
