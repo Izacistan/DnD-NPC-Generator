@@ -1,0 +1,36 @@
+﻿@model List<NPC>
+@{
+    ViewData["Title"] = "NPC List";
+}
+
+<h2>NPCs</h2>
+<div class="mb-2">
+    <a asp-controller="NPC" asp-action="Generate" class="btn btn-primary">Generate New NPC</a>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Class</th>
+            <th>Race</th>
+            <th>Level</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var NPC in Model)
+        {
+            <tr>
+                <td>@NPC.Name</td>
+                <td>@NPC.Class</td>
+                <td>@NPC.Race</td>
+                <td>@NPC.Level</td>
+                <td>
+                    <a asp-controller="NPC" asp-action="Edit" asp-route-id="@NPC.NPCId">Edit</a>
+                    <a asp-controller="NPC" asp-action="Delete" asp-route-id="@NPC.NPCId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

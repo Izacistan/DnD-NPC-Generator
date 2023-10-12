@@ -1,7 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using DnD_NPC_Generator.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<NPCContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("NPCContext")));
 
 var app = builder.Build();
 

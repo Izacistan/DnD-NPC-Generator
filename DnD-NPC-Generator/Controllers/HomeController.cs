@@ -9,9 +9,12 @@ namespace DnD_NPC_Generator.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private NPCContext context { get; set; }
+
+        public HomeController(ILogger<HomeController> logger, NPCContext context)
         {
             _logger = logger;
+            this.context = context;
         }
 
         public IActionResult Index()
@@ -20,6 +23,11 @@ namespace DnD_NPC_Generator.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult Login()
         {
             return View();
         }

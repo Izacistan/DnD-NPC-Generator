@@ -1,18 +1,183 @@
-html {
-  font-size: 14px;
-}
+/************** 
+TYPOGRAPHY 
+**************/
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+:root {
+    --forest-green: #005200;
+    --royal-blue: #003366;
+    --crimson-red: #990000;
+    --gold: #FFD700;
+    --stone-gray: #808080;
+    --parchment: #F9EBD2;
+    --mystical-purple: #800080;
+    --rustic-brown: #8B4513;
+    --dragon-green: #006400;
+    --shadow-black: #000000;
+    --white: #FFFFFF;
 }
 
 body {
-  margin-bottom: 60px;
+    background-color: var(--parchment);
+    background-image: url("../images/beige-paper.png");
+    color: var(--shadow-black);
+    font-family: 'Cinzel', 'EB Garamond', serif;
+    font-size: 18px;
+}
+
+h1, .h1 {
+    font-size: 3em;
+}
+
+h2, .h2 {
+    font-size: 2.666666em;
+    text-transform: none;
+}
+
+h3, .h3 {
+    font-size: 2.11111em;
+}
+
+h4, .h4 {
+    font-size: 1.777777em;
+    margin: 0 0 0.6em 0;
+}
+
+h5, .h5, .subhead {
+    font-size: 1.333333em;
+    margin: 0 0 0.8em 0;
+}
+
+.subhead {
+    margin-bottom: 0.25em !important;
+}
+
+p {
+    font-family: 'EB Garamond', 'Cinzel', serif;
+    font-size: 1.2em;
+}
+
+/* BUTTONS */
+
+.button-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3em;
+}
+
+.button-primary, .button-secondary {
+    border: 4px var(--crimson-red) solid;
+    color: var(--white);
+    font-family: 'Cinzel', 'EB Garamond', serif;
+    font-weight: 900;
+    max-width: 225px;
+    overflow: hidden;
+    padding: 1em;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: 0.235s;
+}
+
+.button-primary {
+    background-color: var(--crimson-red);
+}
+
+.button-secondary {
+    color: var(--shadow-black)
+}
+
+    .button-secondary:hover {
+        background-color: var(--dragon-green);
+        border-color: var(--dragon-green);
+        color: var(--white);
+    }
+
+/************** 
+ANIMATIONS 
+**************/
+
+/* Sheen Effect */
+.sheen:after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    bottom: -50%;
+    left: -50%;
+    background: linear-gradient(to bottom, rgba(229, 172, 142, 0), rgba(255,255,255,0.5) 50%, rgba(229, 172, 142, 0));
+    transform: rotateZ(60deg) translate(-5em, 7.5em);
+}
+
+.sheen:hover::after, .button-primary:focus::after {
+    animation: sheen 1s forwards;
+}
+
+@keyframes sheen {
+    100% {
+        transform: rotateZ(60deg) translate(1em, -9em);
+    }
+}
+
+.button-primary:active {
+    box-shadow: 0px 0px 0px white;
+    -webkit-box-shadow: inset -2px 2px 2px #ccc;
+    -moz-box-shadow: inset -2px 2px 2px #ccc;
+    box-shadow: inset -2px 2px 2px #ccc;
+    transform: translate(0, 2px);
+}
+
+.button-primary:focus {
+    outline: 0;
+}
+
+/********** 
+LAYOUT
+**********/
+
+.page-center {
+    margin: auto;
+    max-width: 1280px;
+    width: 90%;
+}
+
+.align-center {
+    text-align: center;
+}
+
+/* FORMS */
+
+.login-section_wrap {
+    margin-top: 3em;
+}
+
+.login_label-input_wrap {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 500px;
+}
+
+input[type="text"], input[type="password"], input[type="email"] {
+    background-color: var(--white);
+    border-width: 1px;
+    font-family: 'EB Garamond', 'Cinzel', serif;
+    font-size: 1em;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 1em;
+    padding: 0.5em;
+}
+
+    input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus,
+    input[type="text"]:hover, input[type="password"]:hover, input[type="email"]:hover {
+        border-color: var(--crimson-red);
+        border-bottom-width: 5px;
+        outline: none;
+        padding-bottom: 5px;
+    }
+
+input[type="submit"]:hover {
+    cursor: pointer;
+    transform: translateY(5px);
 }

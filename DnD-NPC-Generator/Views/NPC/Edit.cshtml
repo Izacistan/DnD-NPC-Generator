@@ -1,0 +1,338 @@
+﻿@model NPC
+@section Scripts {
+    <script src="~/js/npc-edit-validation.js"></script>
+}
+<!-- 
+    This is the form to generate a NPC based on the NPC model
+
+    Updated: 9/26/23
+-->
+<h1>@ViewBag.Action Character</h1>
+<form asp-action="Edit" method="post">
+    <!--
+        STILL NEED TO VALIDATION TO NPC CLASS
+    -->
+    @if(ViewBag.Action == "Generate")
+    {
+        <p>
+            <small class="form-text text-muted">Make field 0 for random</small>
+        </p>
+    }
+
+    <div class="d-flex justify-content-between">
+        <!-- NAME -->
+        <div id="form-name" class="form-group flex-fill">
+            <label asp-for="Name">Name</label>
+            <input class="form-control" asp-for="Name" />
+
+        </div>
+        <div class="d-flex justify-content-lg-evenly text-center">
+            <!-- LEVEL -->
+            <div id="form-level" class="form-group">
+                <label asp-for="Level">Level</label>
+                <div class="input-group">
+                    <span class="input-group-text">Lv. </span>
+                    <input name="Level" type="number" class="form-control" asp-for="Level" />
+                </div>
+            </div>
+
+            <!-- PROFMOD -->
+            <!-- tied to level so can automate with js -->
+            <div id="form-prof" class="form-group">
+                <label asp-for="ProfMod" class="text-center">Proficiency Bonus</label>
+                <input name="proBonus" type="number" class="form-control" asp-for="ProfMod" readonly />
+            </div>
+
+            <!-- AC -->
+            <div id="form-ac" class="form-group">
+                <label asp-for="AC" class="text-center">AC</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fa-solid fa-shield-halved"></i> </span>
+                    <input type="number" class="form-control" asp-for="AC" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <!-- CLASS -->
+    <div id="form-class" class="form-group">
+        <label asp-for="Class">Class</label>
+        <input class="form-control" asp-for="Class" />
+    </div>
+
+    <!-- RACE -->
+    <div id="form-race" class="form-group">
+        <label asp-for="Race">Race</label>
+        <input class="form-control" asp-for="Race" />
+    </div>
+
+    <!-- HEALTH -->
+    <fieldset id="form-health" class="mb-3 text-center">
+        <legend>Health</legend>
+        <div class ="d-flex justify-content-around">
+            <div class="form-group">
+                <label asp-for="HitPoints">Hit Points</label>
+                <input asp-for="HitPoints" class="form-control " />
+            </div>
+            <div class="form-group">
+                <label>Hit Dice</label>
+                <div class="d-flex justify-content-around">
+                    <input asp-for="HitDieCount" class="form-control" />
+                    <span class="input-group-text">d</span>
+                    <input asp-for="HitDie" class="form-control" />
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <!-- STATS AND PROFICIENCIES -->
+    <!--
+        in order to keep generator short and simple the modification of the scores and stats will be toggled by a button
+    -->
+    <div class="d-flex justify-content-lg-center">
+        <a class="btn btn-primary m-3" data-bs-toggle="collapse" href="#form-extra" role="button">Modify Stats</a>
+        <a class="btn btn-primary m-3" data-bs-toggle="collapse" href="#form-proficiencies" role="button">Modify Proficiencies</a>
+    </div>
+
+    <div id="form-extra" class="collapse">
+        <div id="form-stats">
+            <table class="table align-middle text-center">
+                <thead class="thead-light">
+                    <tr>
+                        <td></td>
+                        <td scope="col">STR</td>
+                        <td scope="col">DEX</td>
+                        <td scope="col">CON</td>
+                        <td scope="col">INT</td>
+                        <td scope="col">WIS</td>
+                        <td scope="col">CHA</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--Scores-->
+                    <tr>
+                        <td scope="row">Score</td>
+                        <td>
+                            <input type="number" asp-for="StrScore" />
+                        </td>
+                        <td>
+                            <input type="number" asp-for="DexScore"  />
+                        </td>
+                        <td>
+                            <input type="number" asp-for="ConScore"  />
+                        </td>
+                        <td>
+                            <input type="number" asp-for="IntScore"  />
+                        </td>
+                        <td>
+                            <input type="number" asp-for="WisScore"  />
+                        </td>
+                        <td>
+                            <input type="number" asp-for="ChaScore"  />
+                        </td>
+                    </tr>
+                    <!--Modifiers-->
+                    <tr>
+                        <td scope="row">Mod</td>
+                        <td>
+                            <input type="number" readonly asp-for="StrMod"  />
+                        </td>
+                        <td>
+                            <input type="number" readonly asp-for="DexMod"  />
+                        </td>
+                        <td>
+                            <input type="number" readonly asp-for="ConMod"  />
+                        </td>
+                        <td>
+                            <input type="number" readonly asp-for="IntMod"  />
+                        </td>
+                        <td>
+                            <input type="number" readonly asp-for="WisMod"  />
+                        </td>
+                        <td>
+                            <input type="number" readonly asp-for="ChaMod"  />
+                        </td>
+                    </tr>
+                    <!--Saves-->
+                    <tr>
+                        <td scope="row">Saves</td>
+                        <td>
+                            <input type="number" asp-for="StrSave"  />
+                        </td>
+                        <td>
+                            <input type="number" asp-for="DexSave"  />
+                        </td>
+                        <td>
+                            <input type="number" asp-for="ConSave"  />
+                        </td>
+                        <td>
+                            <input type="number" asp-for="IntSave"  />
+                        </td>
+                        <td>
+                            <input type="number" asp-for="WisSave"  />
+                        </td>
+                        <td>
+                            <input type="number" asp-for="ChaSave"  />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <fieldset id="form-proficiencies" class="collapse text-center">
+        <legend>Proficiencies</legend>
+        <div class="text-start">
+            <!-- Acrobatics -->
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input type="checkbox" asp-for="IPAcrobatics" class="form-check-input" />
+                </div>
+                <label asp-for="IPAcrobatics" class="form-control">Acrobatics</label>
+            </div>
+
+            <!-- Animal Handling -->
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input type="checkbox" asp-for="IPAnimalHandling" class="form-check-input" />
+                </div>
+                <label asp-for="IPAnimalHandling" class="form-control">Animal Handling</label>
+            </div>
+
+            <!-- Arcana -->
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input type="checkbox" asp-for="IPArcana" class="form-check-input" />
+                </div>
+                <label asp-for="IPArcana" class="form-control">Arcana</label>
+            </div>
+
+            <!-- Athletic -->
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input type="checkbox" asp-for="IPAthletic" class="form-check-input" />
+                </div>
+                <label asp-for="IPAthletic" class="form-control">Athletic</label>
+            </div>
+
+            <!-- Deception -->
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input type="checkbox" asp-for="IPDeception" class="form-check-input" />
+                </div>
+                <label asp-for="IPDeception" class="form-control">Deception</label>
+            </div>
+
+            <!-- History -->
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input type="checkbox" asp-for="IPHistory" class="form-check-input" />
+                </div>
+                <label asp-for="IPHistory" class="form-control">History</label>
+            </div>
+
+            <!-- Insight -->
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input type="checkbox" asp-for="IPInsight" class="form-check-input" />
+                </div>
+                <label asp-for="IPInsight" class="form-control">Insight</label>
+            </div>
+
+            <!-- Intimidation -->
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input type="checkbox" asp-for="IPIntimidation" class="form-check-input" />
+                </div>
+                <label asp-for="IPIntimidation" class="form-control">Intimidation</label>
+            </div>
+
+            <!-- Investigation -->
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input type="checkbox" asp-for="IPInvestigation" class="form-check-input" />
+                </div>
+                <label asp-for="IPInvestigation" class="form-control">Investigation</label>
+            </div>
+
+            <!-- Medicine -->
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input type="checkbox" asp-for="IPMedicine" class="form-check-input" />
+                </div>
+                <label asp-for="IPMedicine" class="form-control">Medicine</label>
+            </div>
+
+            <!-- Nature -->
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input type="checkbox" asp-for="IPNature" class="form-check-input" />
+                </div>
+                <label asp-for="IPNature" class="form-control">Nature</label>
+            </div>
+
+            <!-- Perception -->
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input type="checkbox" asp-for="IPPerception" class="form-check-input" />
+                </div>
+                <label asp-for="IPPerception" class="form-control">Perception</label>
+            </div>
+
+            <!-- Performance -->
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input type="checkbox" asp-for="IPPerformance" class="form-check-input" />
+                </div>
+                <label asp-for="IPPerformance" class="form-control">Performance</label>
+            </div>
+
+            <!-- Persuasion -->
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input type="checkbox" asp-for="IPPersuasion" class="form-check-input" />
+                </div>
+                <label asp-for="IPPersuasion" class="form-control">Persuasion</label>
+            </div>
+
+            <!-- Religion -->
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input type="checkbox" asp-for="IPReligion" class="form-check-input" />
+                </div>
+                <label asp-for="IPReligion" class="form-control">Religion</label>
+            </div>
+
+            <!-- Sleight of Hand -->
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input type="checkbox" asp-for="IPSleightOfHand" class="form-check-input" />
+                </div>
+                <label asp-for="IPSleightOfHand" class="form-control">Sleight of Hand</label>
+            </div>
+
+            <!-- Stealth -->
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input type="checkbox" asp-for="IPStealth" class="form-check-input" />
+                </div>
+                <label asp-for="IPStealth" class="form-control">Stealth</label>
+            </div>
+
+            <!-- Survival -->
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input type="checkbox" asp-for="IPSurvival" class="form-check-input" />
+                </div>
+                <label asp-for="IPSurvival" class="form-control">Stealth</label>
+            </div>
+
+        </div>
+    </fieldset>
+
+    <input type="hidden" asp-for="NPCId" />
+
+    <button type="submit" class="btn btn-primary w-100">Generate</button>
+</form>
