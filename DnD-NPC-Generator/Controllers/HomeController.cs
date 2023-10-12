@@ -1,4 +1,5 @@
 ﻿using DnD_NPC_Generator.Models;
+using DnD_NPC_Generator.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
