@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using DnD_NPC_Generator.Models;
+using DnD_NPC_Generator.Sessions;
+using DnD_NPC_Generator.Services;
 
 namespace DnD_NPC_Generator.Controllers
 {
@@ -12,8 +14,11 @@ namespace DnD_NPC_Generator.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var NPCs = context.NPCs.OrderBy(c => c.NPCId).ToList();
-            return View(NPCs);
+            var model = new NPCListView()
+            {
+                NPCs = context.NPCs.OrderBy(c => c.NPCId).ToList()
+            };
+            return View(model);
         }
 
         [HttpGet]
@@ -34,6 +39,11 @@ namespace DnD_NPC_Generator.Controllers
         [HttpPost]
         public IActionResult Edit(NPC npc)
         {
+            //noticed npc service so added it here please use the service as needed -Halmar
+            var service = new NPCService();
+            //service funcions
+            service.SetProficiencyMod(ref npc);
+
             if (ModelState.IsValid)
             {
                 if (npc.NPCId == 0)
@@ -71,12 +81,29 @@ namespace DnD_NPC_Generator.Controllers
         [HttpGet]
         public IActionResult Display()
         {
-            //Next line should be coming from session storage
-            List<NPC> NPCs = context.NPCs.ToList();
-            NPCView nPCView = new NPCView();
-            nPCView.NPCs = NPCs;
+            //Get all NPCs from session
+            var session = new NPCSession(HttpContext.Session);
+            var model = new NPCListView()
+            {
+                NPCs = session.GetViewNPCs()
+            };
 
-            return View(nPCView);
+            return View(model);
+        }
+
+        [HttpPost]
+        public RedirectToActionResult Add(NPC npc)
+        {
+            NPC character = context.NPCs.Where(n => n.NPCId == npc.NPCId).FirstOrDefault();
+
+            var session = new NPCSession(HttpContext.Session);
+            var npcs = session.GetViewNPCs();
+            npcs.Add(character);
+            session.SetViewNPCs(npcs);
+
+            TempData["Message"] = $"{character.Name} added to View List!";
+
+            return RedirectToAction("Index");
         }
     }
 }

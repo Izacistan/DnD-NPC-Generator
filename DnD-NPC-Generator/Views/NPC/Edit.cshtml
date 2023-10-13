@@ -40,7 +40,7 @@
             <!-- tied to level so can automate with js -->
             <div id="form-prof" class="form-group">
                 <label asp-for="ProfMod" class="text-center">Proficiency Bonus</label>
-                <input name="proBonus" type="number" class="form-control" asp-for="ProfMod" readonly />
+                <input name="proBonus" type="number" class="form-control" asp-for="ProfMod" disabled />
             </div>
 
             <!-- AC -->
@@ -326,7 +326,7 @@
                 <div class="input-group-text">
                     <input type="checkbox" asp-for="IPSurvival" class="form-check-input" />
                 </div>
-                <label asp-for="IPSurvival" class="form-control">Stealth</label>
+                <label asp-for="IPSurvival" class="form-control">Survival</label>
             </div>
 
         </div>
@@ -334,5 +334,6 @@
 
     <input type="hidden" asp-for="NPCId" />
 
-    <button type="submit" class="btn btn-primary w-100">Generate</button>
+    <button type="submit" class="btn btn-primary w-100">@ViewBag.Action</button>
+    <a asp-action="Index" class="btn btn-secondary w-100">Cancel</a>
 </form>

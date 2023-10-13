@@ -72,6 +72,60 @@ namespace DnD_NPC_Generator.Migrations
                     b.Property<int>("HitPoints")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IEAcrobatics")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IEAnimalHandling")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IEArcana")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IEAthletic")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IEDeception")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IEHistory")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IEInsight")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IEIntimidation")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IEInvestigation")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IEMedicine")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IENature")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IEPerception")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IEPerformance")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IEPersuasion")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IEReligion")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IESleightOfHand")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IEStealth")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IESurvival")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IPAcrobatics")
                         .HasColumnType("bit");
 
@@ -189,6 +243,24 @@ namespace DnD_NPC_Generator.Migrations
                             HitDie = 0,
                             HitDieCount = 0,
                             HitPoints = 0,
+                            IEAcrobatics = false,
+                            IEAnimalHandling = false,
+                            IEArcana = false,
+                            IEAthletic = false,
+                            IEDeception = false,
+                            IEHistory = false,
+                            IEInsight = false,
+                            IEIntimidation = false,
+                            IEInvestigation = false,
+                            IEMedicine = false,
+                            IENature = false,
+                            IEPerception = false,
+                            IEPerformance = false,
+                            IEPersuasion = false,
+                            IEReligion = false,
+                            IESleightOfHand = false,
+                            IEStealth = false,
+                            IESurvival = false,
                             IPAcrobatics = false,
                             IPAnimalHandling = false,
                             IPArcana = false,
