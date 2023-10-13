@@ -1,8 +1,8 @@
-﻿@model NPCView
+﻿@model NPCListView
 @section Styles {
     <link rel="stylesheet" href="~/css/npc-view.css" />"
 }
-@{ 
+@{
     string GetModString(int mod)
     {
         if(mod >= 0)
@@ -18,13 +18,16 @@
     void profBonus(NPC npc, string name, string baseAbi)
     {
         bool skill = (bool)typeof(NPC).GetProperty("IP" + name).GetValue(npc);
+        bool prof = (bool)typeof(NPC).GetProperty("IE" + name).GetValue(npc);
         int abi = (int)typeof(NPC).GetProperty(baseAbi + "Mod").GetValue(npc);
+        int mod = (prof) ? abi + (npc.ProfMod * 2) : abi + npc.ProfMod;
         if (skill)
         {
-            <li class="skill list-group-item border border-dark border-4">
+            
+               <li class="skill list-group-item border border-dark border-4">
                 <span>@splitCamelCase(name)</span>
-                <span>@GetModString(abi + npc.ProfMod)</span>
-            </li>
+                <span>@GetModString(mod)</span>
+                </li> 
         }
         else
         {
@@ -40,7 +43,7 @@
         return System.Text.RegularExpressions.Regex.Replace(str, "([A-Z])", " $1", System.Text.RegularExpressions.RegexOptions.Compiled).Trim();
     }
 }
-    
+ <a asp-action="Index" class="btn btn-primary">Back to NPC List</a>   
 <h1>NPC's List</h1>
 <div id="npc-cards">
     @foreach (var npc in Model.NPCs)
@@ -93,8 +96,8 @@
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item d-grid gap-2 p-0">
-                    <a class="btn btn-primary text-center" data-bs-toggle="collapse" href="#save-data" role="button">Saves</a>
-                    <table id="save-data" class="table align-middle text-center collapse">
+                    <a class="btn btn-primary text-center" data-bs-toggle="collapse" href="#save-data-@npc.NPCId" role="button">Saves</a>
+                    <table id="save-data-@npc.NPCId" class="table align-middle text-center collapse">
                         <thead>
                             <tr>
                                 <td>STR</td>
@@ -118,8 +121,8 @@
                     </table>
                 </li>
                 <li class="list-group-item d-grid gap-2 p-0">
-                    <a class="btn btn-primary text-center" data-bs-toggle="collapse" href="#prof-data" role="button">Skills</a>
-                    <div id="prof-data" class=" collapse">
+                    <a class="btn btn-primary text-center" data-bs-toggle="collapse" href="#prof-data-@npc.NPCId" role="button">Skills</a>
+                    <div id="prof-data-@npc.NPCId" class=" collapse">
                         <ul class="list-group list-group-horizontal flex-wrap">
                         @{
                             profBonus(npc, "Acrobatics", "Dex");

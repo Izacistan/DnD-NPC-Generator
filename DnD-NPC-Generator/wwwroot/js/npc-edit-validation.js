@@ -1,10 +1,10 @@
 ﻿//this is javascript to validate and autofill the form to Edit or Generate an NPC form
 
 function getBonusFromLevel(level) {
-    if (level == 0) {
-        return 0;
+    if (Number(level) == 0) {
+        return "0";
     } else {
-        return Math.floor(2 + (level - 1) / 4);
+        return Math.floor(2 + (level - 1) / 4).toString();
     }
 }
 function getBonusFromStat(stat) {
@@ -21,6 +21,8 @@ $(document).ready(function () {
     $levelInput.blur(function () {
         let val = $levelInput.val();
         $proBonusInput.val(getBonusFromLevel(val));
+        $proBonusInput.attr("value", getBonusFromLevel(val));
+        console.log($proBonusInput.val());
     });
 
     //when changing base stats calculate modifiers

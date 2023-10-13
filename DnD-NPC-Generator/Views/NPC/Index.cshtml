@@ -1,6 +1,27 @@
-﻿@model List<NPC>
+﻿@using DnD_NPC_Generator.Sessions;
+@model NPCListView;
 @{
     ViewData["Title"] = "NPC List";
+}
+
+@* if any messages display here *@
+@if (TempData["Message"] != null)
+{
+    <h4 class="bg-success p-2">@TempData["Message"]</h4>
+}
+
+@{
+    var session = new NPCSession(Context.Session);
+    @if (session.GetNPCCount() > 0)
+    {
+        <h5 class="btn btn-primary p-2">
+            <a asp-action="Display" class="text-white">Display NPCs</a>
+
+            <span class="badge badge-light">
+                @session.GetNPCCount()
+            </span>
+        </h5>
+    }
 }
 
 <h2>NPCs</h2>
@@ -19,7 +40,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var NPC in Model)
+        @foreach (var NPC in Model.NPCs)
         {
             <tr>
                 <td>@NPC.Name</td>
@@ -29,6 +50,10 @@
                 <td>
                     <a asp-controller="NPC" asp-action="Edit" asp-route-id="@NPC.NPCId">Edit</a>
                     <a asp-controller="NPC" asp-action="Delete" asp-route-id="@NPC.NPCId">Delete</a>
+                    <form asp-action="Add" method="post">
+                        <button type="submit" class="btn btn-primary">Add to View</button>
+                        <input type="hidden" asp-for="@NPC.NPCId" />
+                    </form>
                 </td>
             </tr>
         }
