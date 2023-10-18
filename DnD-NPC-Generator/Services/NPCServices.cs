@@ -69,6 +69,7 @@ namespace DnD_NPC_Generator.Services
             stats.Add(8);
         }
 
+        //Call this before setting stats
         public void StatPriorities(ref List<int> stats, string NPCclass)
         {
             //This method will rearrange the order of the stats depending on their priority
@@ -201,8 +202,127 @@ namespace DnD_NPC_Generator.Services
             stats.Add(intelligence);
             stats.Add(wisdom);
             stats.Add(charisma);
+        }
 
+        //Run this prior to anything below.
+        public void SetStats(ref NPC NPChar, List<int> stats)
+        {
+            //Sets score lineup
+            NPChar.StrScore = stats.ElementAt(0);
+            NPChar.DexScore = stats.ElementAt(1);
+            NPChar.ConScore = stats.ElementAt(2);
+            NPChar.IntScore = stats.ElementAt(3);
+            NPChar.WisScore = stats.ElementAt(4);
+            NPChar.ChaScore = stats.ElementAt(5);
 
+            //Sets modifiers
+            NPChar.StrMod = (NPChar.StrScore / 2) - 5;
+            NPChar.StrSave = NPChar.StrMod;
+
+            NPChar.DexMod = (NPChar.DexScore / 2) - 5;
+            NPChar.DexSave = NPChar.DexMod;
+
+            NPChar.ConMod = (NPChar.ConScore / 2) - 5;
+            NPChar.ConSave = NPChar.ConMod;
+
+            NPChar.IntMod = (NPChar.IntScore / 2) - 5;
+            NPChar.IntSave = NPChar.IntMod;
+
+            NPChar.WisMod = (NPChar.WisScore / 2) - 5;
+            NPChar.WisSave = NPChar.WisMod;
+
+            NPChar.ChaMod = (NPChar.ChaScore / 2) - 5;
+            NPChar.ChaSave = NPChar.ChaMod;
+        }
+
+        //Call this method prior to any stat setting functions
+        public void SetProficiencyMod(ref NPC NPChar)
+        {
+            int ProfMod = 2;
+            if (NPChar.Level > 4)
+            {
+                ProfMod++;
+            }
+            if (NPChar.Level > 8)
+            {
+                ProfMod++;
+            }
+            if (NPChar.Level > 12)
+            {
+                ProfMod++;
+            }
+            if (NPChar.Level > 16)
+            {
+                ProfMod++;
+            }
+            NPChar.ProfMod = ProfMod;
+        }
+
+        //Only run after class, stats, and prof have been set.
+        public void SetSaveProficiencies(ref NPC NPChar)
+        {
+            switch (NPChar.Class)
+            {
+                case "Barbarian":
+                    NPChar.StrSave += NPChar.ProfMod;
+                    NPChar.ConSave += NPChar.ProfMod;
+                    break;
+
+                case "Bard":
+                    NPChar.DexSave += NPChar.ProfMod;
+                    NPChar.ChaSave += NPChar.ProfMod;
+                    break;
+
+                case "Cleric":
+                    NPChar.WisSave += NPChar.ProfMod;
+                    NPChar.ConSave += NPChar.ProfMod;
+                    break;
+
+                case "Druid":
+                    NPChar.IntSave += NPChar.ProfMod;
+                    NPChar.WisSave += NPChar.ProfMod;
+                    break;
+
+                case "Fighter":
+                    NPChar.StrSave += NPChar.ProfMod;
+                    NPChar.ConSave += NPChar.ProfMod;
+                    break;
+
+                case "Monk":
+                    NPChar.StrSave += NPChar.ProfMod;
+                    NPChar.DexSave += NPChar.ProfMod;
+                    break;
+
+                case "Paladin":
+                    NPChar.WisSave += NPChar.ProfMod;
+                    NPChar.ChaSave += NPChar.ProfMod;
+                    break;
+
+                case "Ranger":
+                    NPChar.StrSave += NPChar.ProfMod;
+                    NPChar.DexSave += NPChar.ProfMod;
+                    break;
+
+                case "Rogue":
+                    NPChar.DexSave += NPChar.ProfMod;
+                    NPChar.IntSave += NPChar.ProfMod;
+                    break;
+
+                case "Sorcerer":
+                    NPChar.ConSave += NPChar.ProfMod;
+                    NPChar.ChaSave += NPChar.ProfMod;
+                    break;
+
+                case "Warlock":
+                    NPChar.WisSave += NPChar.ProfMod;
+                    NPChar.ChaSave += NPChar.ProfMod;
+                    break;
+
+                case "Wizard":
+                    NPChar.IntSave += NPChar.ProfMod;
+                    NPChar.WisSave += NPChar.ProfMod;
+                    break;
+            }
         }
     }
 } 
