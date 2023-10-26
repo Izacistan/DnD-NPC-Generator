@@ -24,6 +24,32 @@ namespace DnD_NPC_Generator.Services
             return StatList;
         }
 
+        public void ChooseClass(ref NPC npc, string choice)
+        {
+            if (choice != "Random")
+            {
+                npc.Class = choice;
+                return;
+            }
+            List<string> ClassList = new List<string>();
+            ClassList.Add("Barbarian");
+            ClassList.Add("Bard");
+            ClassList.Add("Cleric");
+            ClassList.Add("Druid");
+            ClassList.Add("Fighter");
+            ClassList.Add("Monk");
+            ClassList.Add("Paladin");
+            ClassList.Add("Ranger");
+            ClassList.Add("Rogue");
+            ClassList.Add("Sorcerer");
+            ClassList.Add("Warlock");
+            ClassList.Add("Wizard");
+            Random d12 = new Random();
+            int newClass = d12.Next(12);
+            npc.Class = ClassList.ElementAt(newClass);
+            return;
+        }
+
         public void Gen4d6d1(ref List<int> stats)
         {
             Random dSix = new Random();
@@ -323,6 +349,17 @@ namespace DnD_NPC_Generator.Services
                     NPChar.WisSave += NPChar.ProfMod;
                     break;
             }
+        }
+        public void GenerateNPC(ref NPC npc, string classChoice, string statChoice)
+        {
+            if (npc == null) return;
+
+            List<int> stats = GenerateStats(statChoice);//Get the stat lineup
+            ChooseClass(ref npc, classChoice);//Set the class
+            StatPriorities(ref stats, npc.Class);//Arrange stats by priority
+            SetProficiencyMod(ref npc);//Set the save proficiency
+            SetStats(ref npc, stats);//Set the stats
+            SetSaveProficiencies(ref npc);
         }
     }
 } 

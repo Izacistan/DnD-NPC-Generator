@@ -22,10 +22,14 @@ namespace DnD_NPC_Generator.Controllers
         }
 
         [HttpGet]
-        public IActionResult Generate()
+        public IActionResult Generate(string classChoice, string statChoice)
         {
+            var service = new NPCService();
+            var npc = new NPC();
+            service.GenerateNPC(ref npc, classChoice, statChoice);
             ViewBag.Action = "Generate";
-            return View("Edit", new NPC());
+
+            return View("Edit", npc);
         }
 
         [HttpGet]
