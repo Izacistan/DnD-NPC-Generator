@@ -1,17 +1,20 @@
 ﻿@model NPC
+@section Styles {
+    <link rel="stylesheet" href="~/css/npc-edit.css">
+}
 @section Scripts {
     <script src="~/js/npc-edit-validation.js"></script>
 }
 <!-- 
     This is the form to generate a NPC based on the NPC model
 
-    Updated: 9/26/23
+    Updated: 10/31/23
 -->
 <h1>@ViewBag.Action Character</h1>
 <form asp-action="Edit" method="post">
-    <!--
-        STILL NEED TO VALIDATION TO NPC CLASS
-    -->
+    <div asp-validation-summary="All" class="text-danger">
+        <h4>Please fix the following errors:</h4>
+    </div>
     @if(ViewBag.Action == "Generate")
     {
         <p>
@@ -190,6 +193,7 @@
                 <div class="input-group-text">
                     <input type="checkbox" asp-for="IPAcrobatics" class="form-check-input" />
                 </div>
+                <label><input type="checkbox" asp-for="IEAcrobatics" class="expert"><span class="expert-label">Expert</span></label>
                 <label asp-for="IPAcrobatics" class="form-control">Acrobatics</label>
             </div>
 
@@ -198,6 +202,7 @@
                 <div class="input-group-text">
                     <input type="checkbox" asp-for="IPAnimalHandling" class="form-check-input" />
                 </div>
+                <label><input type="checkbox" asp-for="IEAnimalHandling" class="expert"><span class="expert-label">Expert</span></label>
                 <label asp-for="IPAnimalHandling" class="form-control">Animal Handling</label>
             </div>
 
@@ -206,6 +211,7 @@
                 <div class="input-group-text">
                     <input type="checkbox" asp-for="IPArcana" class="form-check-input" />
                 </div>
+                <label><input type="checkbox" asp-for="IEArcana" class="expert"><span class="expert-label">Expert</span></label>
                 <label asp-for="IPArcana" class="form-control">Arcana</label>
             </div>
 
@@ -214,6 +220,7 @@
                 <div class="input-group-text">
                     <input type="checkbox" asp-for="IPAthletic" class="form-check-input" />
                 </div>
+                <label><input type="checkbox" asp-for="IEAthletic" class="expert"><span class="expert-label">Expert</span></label>
                 <label asp-for="IPAthletic" class="form-control">Athletic</label>
             </div>
 
@@ -222,6 +229,7 @@
                 <div class="input-group-text">
                     <input type="checkbox" asp-for="IPDeception" class="form-check-input" />
                 </div>
+                <label><input type="checkbox" asp-for="IEDeception" class="expert"><span class="expert-label">Expert</span></label>
                 <label asp-for="IPDeception" class="form-control">Deception</label>
             </div>
 
@@ -230,6 +238,7 @@
                 <div class="input-group-text">
                     <input type="checkbox" asp-for="IPHistory" class="form-check-input" />
                 </div>
+                <label><input type="checkbox" asp-for="IEHistory" class="expert"><span class="expert-label">Expert</span></label>
                 <label asp-for="IPHistory" class="form-control">History</label>
             </div>
 
@@ -238,6 +247,7 @@
                 <div class="input-group-text">
                     <input type="checkbox" asp-for="IPInsight" class="form-check-input" />
                 </div>
+                <label><input type="checkbox" asp-for="IEInsight" class="expert"><span class="expert-label">Expert</span></label>
                 <label asp-for="IPInsight" class="form-control">Insight</label>
             </div>
 
@@ -246,6 +256,7 @@
                 <div class="input-group-text">
                     <input type="checkbox" asp-for="IPIntimidation" class="form-check-input" />
                 </div>
+                <label><input type="checkbox" asp-for="IEIntimidation" class="expert"><span class="expert-label">Expert</span></label>
                 <label asp-for="IPIntimidation" class="form-control">Intimidation</label>
             </div>
 
@@ -254,6 +265,7 @@
                 <div class="input-group-text">
                     <input type="checkbox" asp-for="IPInvestigation" class="form-check-input" />
                 </div>
+                <label><input type="checkbox" asp-for="IEInvestigation" class="expert"><span class="expert-label">Expert</span></label>
                 <label asp-for="IPInvestigation" class="form-control">Investigation</label>
             </div>
 
@@ -262,6 +274,7 @@
                 <div class="input-group-text">
                     <input type="checkbox" asp-for="IPMedicine" class="form-check-input" />
                 </div>
+                <label><input type="checkbox" asp-for="IEMedicine" class="expert"><span class="expert-label">Expert</span></label>
                 <label asp-for="IPMedicine" class="form-control">Medicine</label>
             </div>
 
@@ -270,6 +283,7 @@
                 <div class="input-group-text">
                     <input type="checkbox" asp-for="IPNature" class="form-check-input" />
                 </div>
+                <label><input type="checkbox" asp-for="IENature" class="expert"><span class="expert-label">Expert</span></label>
                 <label asp-for="IPNature" class="form-control">Nature</label>
             </div>
 
@@ -278,6 +292,7 @@
                 <div class="input-group-text">
                     <input type="checkbox" asp-for="IPPerception" class="form-check-input" />
                 </div>
+                <label><input type="checkbox" asp-for="IEPerception" class="expert"><span class="expert-label">Expert</span></label>
                 <label asp-for="IPPerception" class="form-control">Perception</label>
             </div>
 
@@ -286,6 +301,7 @@
                 <div class="input-group-text">
                     <input type="checkbox" asp-for="IPPerformance" class="form-check-input" />
                 </div>
+                <label><input type="checkbox" asp-for="IEPerformance" class="expert"><span class="expert-label">Expert</span></label>
                 <label asp-for="IPPerformance" class="form-control">Performance</label>
             </div>
 
@@ -294,6 +310,7 @@
                 <div class="input-group-text">
                     <input type="checkbox" asp-for="IPPersuasion" class="form-check-input" />
                 </div>
+                <label><input type="checkbox" asp-for="IEPersuasion" class="expert"><span class="expert-label">Expert</span></label>
                 <label asp-for="IPPersuasion" class="form-control">Persuasion</label>
             </div>
 
@@ -302,6 +319,7 @@
                 <div class="input-group-text">
                     <input type="checkbox" asp-for="IPReligion" class="form-check-input" />
                 </div>
+                <label><input type="checkbox" asp-for="IEReligion" class="expert"><span class="expert-label">Expert</span></label>
                 <label asp-for="IPReligion" class="form-control">Religion</label>
             </div>
 
@@ -310,6 +328,7 @@
                 <div class="input-group-text">
                     <input type="checkbox" asp-for="IPSleightOfHand" class="form-check-input" />
                 </div>
+                <label><input type="checkbox" asp-for="IESleightOfHand" class="expert"><span class="expert-label">Expert</span></label>
                 <label asp-for="IPSleightOfHand" class="form-control">Sleight of Hand</label>
             </div>
 
@@ -318,6 +337,7 @@
                 <div class="input-group-text">
                     <input type="checkbox" asp-for="IPStealth" class="form-check-input" />
                 </div>
+                <label><input type="checkbox" asp-for="IEStealth" class="expert"><span class="expert-label">Expert</span></label>
                 <label asp-for="IPStealth" class="form-control">Stealth</label>
             </div>
 
@@ -326,6 +346,7 @@
                 <div class="input-group-text">
                     <input type="checkbox" asp-for="IPSurvival" class="form-check-input" />
                 </div>
+                <label><input type="checkbox" asp-for="IESurvival" class="expert"><span class="expert-label">Expert</span></label>
                 <label asp-for="IPSurvival" class="form-control">Survival</label>
             </div>
 
