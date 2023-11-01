@@ -1,0 +1,19 @@
+﻿.expert {
+    display: none;
+}
+.expert-label {
+    border: 1px solid #000;
+    display: inline-block;
+    background-color: white;
+    padding: 3px;
+}
+
+.expert:checked + .expert-label {
+    border: 1px solid #fff;
+    background-color: navy;
+    color: white;
+}
+
+.input-validation-error {
+    border: 2px solid #dc3545;
+}
