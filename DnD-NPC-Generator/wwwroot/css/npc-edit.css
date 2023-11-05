@@ -17,3 +17,6 @@
 .input-validation-error {
     border: 2px solid #dc3545;
 }
+
+.validation-summary-valid {
+    display: none;
