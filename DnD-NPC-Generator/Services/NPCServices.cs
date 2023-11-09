@@ -350,6 +350,93 @@ namespace DnD_NPC_Generator.Services
                     break;
             }
         }
+
+        public void SetSubclass(ref NPC NPChar)
+        {
+            List<string> possibilities = new List<string>();
+            switch (NPChar.Class)
+            {
+                case "Barbarian":
+                    possibilities.Add("Berserker");
+                    possibilities.Add("Totem Warrior");
+                    break;
+
+                case "Bard":
+                    possibilities.Add("Lore");
+                    possibilities.Add("Valor");
+                    break;
+
+                case "Cleric":
+                    possibilities.Add("Knowledge");
+                    possibilities.Add("Life");
+                    possibilities.Add("Light");
+                    possibilities.Add("Nature");
+                    possibilities.Add("Tempest");
+                    possibilities.Add("Trickery");
+                    possibilities.Add("War");
+                    break;
+
+                case "Druid":
+                    possibilities.Add("Land");
+                    possibilities.Add("Moon");
+                    break;
+
+                case "Fighter":
+                    possibilities.Add("Battle Master");
+                    possibilities.Add("Champion");
+                    possibilities.Add("Eldritch Knight");
+                    break;
+
+                case "Monk":
+                    possibilities.Add("Shadow");
+                    possibilities.Add("Four Elements");
+                    possibilities.Add("Open Hand");
+                    break;
+
+                case "Paladin":
+                    possibilities.Add("Devotion");
+                    possibilities.Add("Ancients");
+                    possibilities.Add("Vengeance");
+                    break;
+
+                case "Ranger":
+                    possibilities.Add("Beast Master");
+                    possibilities.Add("Hunter");
+                    break;
+
+                case "Rogue":
+                    possibilities.Add("Arcane Trickster");
+                    possibilities.Add("Assassin");
+                    possibilities.Add("Thief");
+                    break;
+
+                case "Sorcerer":
+                    possibilities.Add("Draconic Bloodline");
+                    possibilities.Add("Wild Magic");
+                    break;
+
+                case "Warlock":
+                    possibilities.Add("Archfey");
+                    possibilities.Add("Fiend");
+                    possibilities.Add("Great Old One");
+                    break;
+
+                case "Wizard":
+                    possibilities.Add("Abjuration");
+                    possibilities.Add("Conjuration");
+                    possibilities.Add("Divination");
+                    possibilities.Add("Enchantment");
+                    possibilities.Add("Evocation");
+                    possibilities.Add("Illusion");
+                    possibilities.Add("Necromancy");
+                    possibilities.Add("Transmutation");
+                    break;
+            }
+            Random subchoice = new Random();
+            int roll = subchoice.Next(possibilities.Count());
+            NPChar.Subclass = possibilities.ElementAt(roll);
+        }
+
         public void GenerateNPC(ref NPC npc, string classChoice, string statChoice)
         {
             if (npc == null) return;
@@ -360,6 +447,7 @@ namespace DnD_NPC_Generator.Services
             SetProficiencyMod(ref npc);//Set the save proficiency
             SetStats(ref npc, stats);//Set the stats
             SetSaveProficiencies(ref npc);
+            SetSubclass(ref npc);
         }
     }
 } 

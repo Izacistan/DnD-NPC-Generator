@@ -15,6 +15,8 @@ namespace DnD_NPC_Generator.Models
         [Required(ErrorMessage = "Please enter a class.")]
         public string Class { get; set; } = string.Empty;
 
+        public string Subclass { get; set; } = string.Empty;
+
         [Required(ErrorMessage = "Please enter a race.")]
         public string Race { get; set; } = string.Empty;
         public int HitPoints { get; set; }
@@ -98,6 +100,12 @@ namespace DnD_NPC_Generator.Models
         public bool IESleightOfHand { get; set; } = false;
         public bool IEStealth { get; set; } = false;
         public bool IESurvival { get; set; } = false;
+
+        //Spell Information
+        //Index 0 is known cantrips. From there on it is number of known spells of that level. 
+        public List<int> KnownSpells { get; set; } = null!;
+        public List<int> SpellSlots { get; set; } = null!;
+        public List<string> SpellBook { get; set; } = null!;
 
         public NPC() { }
     }
