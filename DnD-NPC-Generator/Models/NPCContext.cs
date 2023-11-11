@@ -19,7 +19,9 @@ namespace DnD_NPC_Generator.Models
                     Name = "Test NPC",
                     Class = "Barbarian",
                     Race = "Human",
-                    Level = 1
+                    Level = 1,
+                    isSpellcaster = false,
+                    spellData = ""
                 }
             );
         }
