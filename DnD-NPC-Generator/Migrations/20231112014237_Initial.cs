@@ -2,6 +2,8 @@
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace DnD_NPC_Generator.Migrations
 {
     /// <inheritdoc />
@@ -11,14 +13,40 @@ namespace DnD_NPC_Generator.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "NPCClasses",
+                columns: table => new
+                {
+                    NPCClassId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NPCClasses", x => x.NPCClassId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "NPCRaces",
+                columns: table => new
+                {
+                    NPCRaceId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NPCRaces", x => x.NPCRaceId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "NPCs",
                 columns: table => new
                 {
                     NPCId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Class = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Race = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NPCClassId = table.Column<int>(type: "int", nullable: false),
+                    NPCRaceId = table.Column<int>(type: "int", nullable: false),
                     HitPoints = table.Column<int>(type: "int", nullable: false),
                     HitDie = table.Column<int>(type: "int", nullable: false),
                     HitDieCount = table.Column<int>(type: "int", nullable: false),
@@ -83,12 +111,69 @@ namespace DnD_NPC_Generator.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_NPCs", x => x.NPCId);
+                    table.ForeignKey(
+                        name: "FK_NPCs_NPCClasses_NPCClassId",
+                        column: x => x.NPCClassId,
+                        principalTable: "NPCClasses",
+                        principalColumn: "NPCClassId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_NPCs_NPCRaces_NPCRaceId",
+                        column: x => x.NPCRaceId,
+                        principalTable: "NPCRaces",
+                        principalColumn: "NPCRaceId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "NPCClasses",
+                columns: new[] { "NPCClassId", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Barbarian" },
+                    { 2, "Bard" },
+                    { 3, "Cleric" },
+                    { 4, "Druid" },
+                    { 5, "Fighter" },
+                    { 6, "Monk" },
+                    { 7, "Paladin" },
+                    { 8, "Ranger" },
+                    { 9, "Rogue" },
+                    { 10, "Sorcerer" },
+                    { 11, "Warlock" },
+                    { 12, "Wizard" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "NPCRaces",
+                columns: new[] { "NPCRaceId", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Dwarf" },
+                    { 2, "Elf" },
+                    { 3, "Halfling" },
+                    { 4, "Human" },
+                    { 5, "Dragonborn" },
+                    { 6, "Gnome" },
+                    { 7, "Half-Elf" },
+                    { 8, "Half-Orc" },
+                    { 9, "Tiefling" }
                 });
 
             migrationBuilder.InsertData(
                 table: "NPCs",
-                columns: new[] { "NPCId", "AC", "ChaMod", "ChaSave", "ChaScore", "Class", "ConMod", "ConSave", "ConScore", "DexMod", "DexSave", "DexScore", "HitDie", "HitDieCount", "HitPoints", "IEAcrobatics", "IEAnimalHandling", "IEArcana", "IEAthletic", "IEDeception", "IEHistory", "IEInsight", "IEIntimidation", "IEInvestigation", "IEMedicine", "IENature", "IEPerception", "IEPerformance", "IEPersuasion", "IEReligion", "IESleightOfHand", "IEStealth", "IESurvival", "IPAcrobatics", "IPAnimalHandling", "IPArcana", "IPAthletic", "IPDeception", "IPHistory", "IPInsight", "IPIntimidation", "IPInvestigation", "IPMedicine", "IPNature", "IPPerception", "IPPerformance", "IPPersuasion", "IPReligion", "IPSleightOfHand", "IPStealth", "IPSurvival", "IntMod", "IntSave", "IntScore", "Level", "Name", "ProfMod", "Race", "StrMod", "StrSave", "StrScore", "WisMod", "WisSave", "WisScore" },
-                values: new object[] { 1, 0, 0, 0, 0, "Barbarian", 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, 0, 0, 0, 1, "Test NPC", 0, "Human", 0, 0, 0, 0, 0, 0 });
+                columns: new[] { "NPCId", "AC", "ChaMod", "ChaSave", "ChaScore", "ConMod", "ConSave", "ConScore", "DexMod", "DexSave", "DexScore", "HitDie", "HitDieCount", "HitPoints", "IEAcrobatics", "IEAnimalHandling", "IEArcana", "IEAthletic", "IEDeception", "IEHistory", "IEInsight", "IEIntimidation", "IEInvestigation", "IEMedicine", "IENature", "IEPerception", "IEPerformance", "IEPersuasion", "IEReligion", "IESleightOfHand", "IEStealth", "IESurvival", "IPAcrobatics", "IPAnimalHandling", "IPArcana", "IPAthletic", "IPDeception", "IPHistory", "IPInsight", "IPIntimidation", "IPInvestigation", "IPMedicine", "IPNature", "IPPerception", "IPPerformance", "IPPersuasion", "IPReligion", "IPSleightOfHand", "IPStealth", "IPSurvival", "IntMod", "IntSave", "IntScore", "Level", "NPCClassId", "NPCRaceId", "Name", "ProfMod", "StrMod", "StrSave", "StrScore", "WisMod", "WisSave", "WisScore" },
+                values: new object[] { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, 0, 0, 0, 1, 1, 4, "Test NPC", 0, 0, 0, 0, 0, 0, 0 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NPCs_NPCClassId",
+                table: "NPCs",
+                column: "NPCClassId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NPCs_NPCRaceId",
+                table: "NPCs",
+                column: "NPCRaceId");
         }
 
         /// <inheritdoc />
@@ -96,6 +181,12 @@ namespace DnD_NPC_Generator.Migrations
         {
             migrationBuilder.DropTable(
                 name: "NPCs");
+
+            migrationBuilder.DropTable(
+                name: "NPCClasses");
+
+            migrationBuilder.DropTable(
+                name: "NPCRaces");
         }
     }
 }
