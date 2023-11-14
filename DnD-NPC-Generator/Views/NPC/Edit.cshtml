@@ -61,14 +61,26 @@
 
     <!-- CLASS -->
     <div id="form-class" class="form-group">
-        <label asp-for="Class">Class</label>
-        <input class="form-control" asp-for="Class" />
+        <label asp-for="NPCClassId" class="form-label">Class</label>
+        <select asp-for="NPCClassId" class="form-select">
+            <option value="">select a class</option>
+            @foreach (NPCClass c in ViewBag.Classes)
+            {
+                <option value="@c.NPCClassId">@c.Name</option>
+            }
+        </select>
     </div>
 
     <!-- RACE -->
     <div id="form-race" class="form-group">
-        <label asp-for="Race">Race</label>
-        <input class="form-control" asp-for="Race" />
+        <label asp-for="NPCRaceId" class="form-label">Race</label>
+        <select asp-for="NPCRaceId" class="form-select">
+            <option value="">select a race</option>
+            @foreach (NPCRace r in ViewBag.Races)
+            {
+                <option value="@r.NPCRaceId">@r.Name</option>
+            }
+        </select>
     </div>
 
     <!-- HEALTH -->

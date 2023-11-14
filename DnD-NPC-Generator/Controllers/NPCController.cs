@@ -2,6 +2,7 @@
 using DnD_NPC_Generator.Models;
 using DnD_NPC_Generator.Sessions;
 using DnD_NPC_Generator.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace DnD_NPC_Generator.Controllers
 {
@@ -16,9 +17,18 @@ namespace DnD_NPC_Generator.Controllers
         {
             var model = new NPCListView()
             {
-                NPCs = context.NPCs.OrderBy(c => c.NPCId).ToList()
+                NPCs = context.NPCs.Include(n => n.NPCClass).Include(n => n.NPCRace).OrderBy(c => c.NPCId).ToList()
             };
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Add()
+        {
+            ViewBag.Action = "Add";
+            ViewBag.Classes = context.NPCClasses.OrderBy(c => c.NPCClassId).ToList();
+            ViewBag.Races = context.NPCRaces.OrderBy(r => r.NPCRaceId).ToList();
+            return View("Edit", new NPC());
         }
 
         [HttpGet]
@@ -26,7 +36,9 @@ namespace DnD_NPC_Generator.Controllers
         {
             var service = new NPCService();
             var npc = new NPC();
-            service.GenerateNPC(ref npc, classChoice, statChoice);
+            ViewBag.Classes = context.NPCClasses.OrderBy(c => c.NPCClassId).ToList();
+            ViewBag.Races = context.NPCRaces.OrderBy(r => r.NPCRaceId).ToList();
+            service.GenerateNPC(ref npc, ViewBag.Classes, classChoice, statChoice);
             ViewBag.Action = "Generate";
 
             return View("Edit", npc);
@@ -36,6 +48,8 @@ namespace DnD_NPC_Generator.Controllers
         public IActionResult Edit(int id)
         {
             ViewBag.Action = "Edit";
+            ViewBag.Classes = context.NPCClasses.OrderBy(c => c.NPCClassId).ToList();
+            ViewBag.Races = context.NPCRaces.OrderBy(r => r.NPCRaceId).ToList();
             var NPC = context.NPCs.Find(id);
             return View(NPC);
         }
@@ -64,6 +78,8 @@ namespace DnD_NPC_Generator.Controllers
             else
             {
                 ViewBag.Action = (npc.NPCId == 0) ? "Add" : "Edit";
+                ViewBag.Classes = context.NPCClasses.OrderBy(c => c.NPCClassId).ToList();
+                ViewBag.Races = context.NPCRaces.OrderBy(r => r.NPCRaceId).ToList();
                 return View(npc);
             }
         }

@@ -14,14 +14,17 @@ namespace DnD_NPC_Generator.Models
 
         [Required(ErrorMessage = "Please enter a name.")]
         public string Name { get; set; } = string.Empty;
+        public int NPCClassId { get; set; }
 
-        [Required(ErrorMessage = "Please enter a class.")]
-        public string Class { get; set; } = string.Empty;
+        [ValidateNever]
+        public NPCClass NPCClass { get; set; }
+        public int NPCRaceId { get; set; }
+
+        [ValidateNever]
+        public NPCRace NPCRace { get; set; }
 
         public string Subclass { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Please enter a race.")]
-        public string Race { get; set; } = string.Empty;
         public int HitPoints { get; set; }
         public int HitDie { get; set; }
         public int HitDieCount { get; set; }

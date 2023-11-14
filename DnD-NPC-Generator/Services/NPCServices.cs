@@ -24,29 +24,23 @@ namespace DnD_NPC_Generator.Services
             return StatList;
         }
 
-        public void ChooseClass(ref NPC npc, string choice)
+        public void ChooseClass(ref NPC npc, List<NPCClass> classes, string choice)
         {
             if (choice != "Random")
             {
-                npc.Class = choice;
+                int choiceInt = 1;
+                if (choice != null)
+                {
+                    choiceInt = Int32.Parse(choice);
+                }
+                npc.NPCClassId = choiceInt;
+                npc.NPCClass = classes[choiceInt - 1];
                 return;
             }
-            List<string> ClassList = new List<string>();
-            ClassList.Add("Barbarian");
-            ClassList.Add("Bard");
-            ClassList.Add("Cleric");
-            ClassList.Add("Druid");
-            ClassList.Add("Fighter");
-            ClassList.Add("Monk");
-            ClassList.Add("Paladin");
-            ClassList.Add("Ranger");
-            ClassList.Add("Rogue");
-            ClassList.Add("Sorcerer");
-            ClassList.Add("Warlock");
-            ClassList.Add("Wizard");
             Random d12 = new Random();
-            int newClass = d12.Next(12);
-            npc.Class = ClassList.ElementAt(newClass);
+            int newClass = d12.Next(1, 13);
+            npc.NPCClassId = newClass;
+            npc.NPCClass = classes[newClass - 1];
             return;
         }
 
@@ -287,7 +281,7 @@ namespace DnD_NPC_Generator.Services
         //Only run after class, stats, and prof have been set.
         public void SetSaveProficiencies(ref NPC NPChar)
         {
-            switch (NPChar.Class)
+            switch (NPChar.NPCClass.Name)
             {
                 case "Barbarian":
                     NPChar.StrSave += NPChar.ProfMod;
@@ -437,13 +431,13 @@ namespace DnD_NPC_Generator.Services
             NPChar.Subclass = possibilities.ElementAt(roll);
         }
 
-        public void GenerateNPC(ref NPC npc, string classChoice, string statChoice)
+        public void GenerateNPC(ref NPC npc, List<NPCClass> classes, string classChoice, string statChoice)
         {
             if (npc == null) return;
 
             List<int> stats = GenerateStats(statChoice);//Get the stat lineup
-            ChooseClass(ref npc, classChoice);//Set the class
-            StatPriorities(ref stats, npc.Class);//Arrange stats by priority
+            ChooseClass(ref npc, classes, classChoice);//Set the class
+            StatPriorities(ref stats, npc.NPCClass.Name);//Arrange stats by priority
             SetProficiencyMod(ref npc);//Set the save proficiency
             SetStats(ref npc, stats);//Set the stats
             SetSaveProficiencies(ref npc);
