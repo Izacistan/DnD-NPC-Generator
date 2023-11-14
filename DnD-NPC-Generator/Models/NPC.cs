@@ -12,8 +12,12 @@ namespace DnD_NPC_Generator.Models
         [Required(ErrorMessage = "Please enter a name.")]
         public string Name { get; set; } = string.Empty;
         public int NPCClassId { get; set; }
+
+        [ValidateNever]
         public NPCClass NPCClass { get; set; }
         public int NPCRaceId { get; set; }
+
+        [ValidateNever]
         public NPCRace NPCRace { get; set; }
         public int HitPoints { get; set; }
         public int HitDie { get; set; }
