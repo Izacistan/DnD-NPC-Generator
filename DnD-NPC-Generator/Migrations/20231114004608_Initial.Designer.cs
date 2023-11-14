@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DnD_NPC_Generator.Migrations
 {
     [DbContext(typeof(NPCContext))]
-    [Migration("20231110212328_Spells")]
-    partial class Spells
+    [Migration("20231114004608_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,10 +43,6 @@ namespace DnD_NPC_Generator.Migrations
 
                     b.Property<int>("ChaScore")
                         .HasColumnType("int");
-
-                    b.Property<string>("Class")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ConMod")
                         .HasColumnType("int");
@@ -195,16 +191,18 @@ namespace DnD_NPC_Generator.Migrations
                     b.Property<int>("Level")
                         .HasColumnType("int");
 
+                    b.Property<int>("NPCClassId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NPCRaceId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProfMod")
                         .HasColumnType("int");
-
-                    b.Property<string>("Race")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("StrMod")
                         .HasColumnType("int");
@@ -237,6 +235,10 @@ namespace DnD_NPC_Generator.Migrations
 
                     b.HasKey("NPCId");
 
+                    b.HasIndex("NPCClassId");
+
+                    b.HasIndex("NPCRaceId");
+
                     b.ToTable("NPCs");
 
                     b.HasData(
@@ -247,7 +249,6 @@ namespace DnD_NPC_Generator.Migrations
                             ChaMod = 0,
                             ChaSave = 0,
                             ChaScore = 0,
-                            Class = "Barbarian",
                             ConMod = 0,
                             ConSave = 0,
                             ConScore = 0,
@@ -297,9 +298,10 @@ namespace DnD_NPC_Generator.Migrations
                             IntSave = 0,
                             IntScore = 0,
                             Level = 1,
+                            NPCClassId = 1,
+                            NPCRaceId = 4,
                             Name = "Test NPC",
                             ProfMod = 0,
-                            Race = "Human",
                             StrMod = 0,
                             StrSave = 0,
                             StrScore = 0,
@@ -310,6 +312,168 @@ namespace DnD_NPC_Generator.Migrations
                             isSpellcaster = false,
                             spellData = ""
                         });
+                });
+
+            modelBuilder.Entity("DnD_NPC_Generator.Models.NPCClass", b =>
+                {
+                    b.Property<int>("NPCClassId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NPCClassId"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("NPCClassId");
+
+                    b.ToTable("NPCClasses");
+
+                    b.HasData(
+                        new
+                        {
+                            NPCClassId = 1,
+                            Name = "Barbarian"
+                        },
+                        new
+                        {
+                            NPCClassId = 2,
+                            Name = "Bard"
+                        },
+                        new
+                        {
+                            NPCClassId = 3,
+                            Name = "Cleric"
+                        },
+                        new
+                        {
+                            NPCClassId = 4,
+                            Name = "Druid"
+                        },
+                        new
+                        {
+                            NPCClassId = 5,
+                            Name = "Fighter"
+                        },
+                        new
+                        {
+                            NPCClassId = 6,
+                            Name = "Monk"
+                        },
+                        new
+                        {
+                            NPCClassId = 7,
+                            Name = "Paladin"
+                        },
+                        new
+                        {
+                            NPCClassId = 8,
+                            Name = "Ranger"
+                        },
+                        new
+                        {
+                            NPCClassId = 9,
+                            Name = "Rogue"
+                        },
+                        new
+                        {
+                            NPCClassId = 10,
+                            Name = "Sorcerer"
+                        },
+                        new
+                        {
+                            NPCClassId = 11,
+                            Name = "Warlock"
+                        },
+                        new
+                        {
+                            NPCClassId = 12,
+                            Name = "Wizard"
+                        });
+                });
+
+            modelBuilder.Entity("DnD_NPC_Generator.Models.NPCRace", b =>
+                {
+                    b.Property<int>("NPCRaceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NPCRaceId"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("NPCRaceId");
+
+                    b.ToTable("NPCRaces");
+
+                    b.HasData(
+                        new
+                        {
+                            NPCRaceId = 1,
+                            Name = "Dwarf"
+                        },
+                        new
+                        {
+                            NPCRaceId = 2,
+                            Name = "Elf"
+                        },
+                        new
+                        {
+                            NPCRaceId = 3,
+                            Name = "Halfling"
+                        },
+                        new
+                        {
+                            NPCRaceId = 4,
+                            Name = "Human"
+                        },
+                        new
+                        {
+                            NPCRaceId = 5,
+                            Name = "Dragonborn"
+                        },
+                        new
+                        {
+                            NPCRaceId = 6,
+                            Name = "Gnome"
+                        },
+                        new
+                        {
+                            NPCRaceId = 7,
+                            Name = "Half-Elf"
+                        },
+                        new
+                        {
+                            NPCRaceId = 8,
+                            Name = "Half-Orc"
+                        },
+                        new
+                        {
+                            NPCRaceId = 9,
+                            Name = "Tiefling"
+                        });
+                });
+
+            modelBuilder.Entity("DnD_NPC_Generator.Models.NPC", b =>
+                {
+                    b.HasOne("DnD_NPC_Generator.Models.NPCClass", "NPCClass")
+                        .WithMany()
+                        .HasForeignKey("NPCClassId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DnD_NPC_Generator.Models.NPCRace", "NPCRace")
+                        .WithMany()
+                        .HasForeignKey("NPCRaceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("NPCClass");
+
+                    b.Navigation("NPCRace");
                 });
 #pragma warning restore 612, 618
         }
