@@ -1,11 +1,19 @@
 using Microsoft.EntityFrameworkCore;
 using DnD_NPC_Generator.Models;
+using GraphQL.Client.Abstractions;
+using GraphQL.Client.Serializer.Newtonsoft;
+using GraphQL.Client.Http;
+using DnD_NPC_Generator.WebAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
+
+builder.Services.AddScoped<IGraphQLClient>(s => new GraphQLHttpClient(builder.Configuration.GetConnectionString("GraphQLURI"), new NewtonsoftJsonSerializer()));
+builder.Services.AddScoped<DNDConsumer>();
+
 
 builder.Services.AddControllersWithViews();
 

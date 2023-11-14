@@ -1,6 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using DnD_NPC_Generator.Services;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace DnD_NPC_Generator.Models
 {
@@ -19,6 +22,9 @@ namespace DnD_NPC_Generator.Models
 
         [ValidateNever]
         public NPCRace NPCRace { get; set; }
+
+        public string Subclass { get; set; } = string.Empty;
+
         public int HitPoints { get; set; }
         public int HitDie { get; set; }
         public int HitDieCount { get; set; }
@@ -100,6 +106,34 @@ namespace DnD_NPC_Generator.Models
         public bool IESleightOfHand { get; set; } = false;
         public bool IEStealth { get; set; } = false;
         public bool IESurvival { get; set; } = false;
+
+        //Spell Information
+        public bool isSpellcaster { get; set; } = false;
+
+        public string spellData { get; set; } = string.Empty; //Store JSON spell data in here (slots, known spells, Spellbook)
+
+        public void UpdateSpellData()
+        {
+            // Example spell data
+            var knownSpells = new List<int> { 1, 2, 3 };
+            var spellSlots = new List<int> { 4, 5, 6 };
+            var spellBook = new List<string> { "Fireball", "Magic Missile", "Healing Word" };
+
+            // Serialize Spell JSON data for storage in spellData string
+            spellData = JsonConvert.SerializeObject(new { KnownSpells = knownSpells, SpellSlots = spellSlots, SpellBook = spellBook });
+        }
+
+        public void LoadSpellData()
+        {
+            // Deserialize the JSON string back to the original data structure
+            var deserializedData = JsonConvert.DeserializeAnonymousType(spellData, new { KnownSpells = new List<int>(), SpellSlots = new List<int>(), SpellBook = new List<string>() });
+
+            // Access deserialized data as needed
+            Spells = new List<string>(deserializedData.SpellBook);
+        }
+
+        [NotMapped]
+        public List<string> Spells { get; set; }
 
         public NPC() { }
     }

@@ -48,7 +48,9 @@ namespace DnD_NPC_Generator.Models
                     Name = "Test NPC",
                     NPCClassId = 1,
                     NPCRaceId = 4,
-                    Level = 1
+                    Level = 1,
+                    isSpellcaster = false,
+                    spellData = ""
                 }
             );
         }

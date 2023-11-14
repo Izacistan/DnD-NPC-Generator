@@ -7,6 +7,8 @@ using Microsoft.Identity.Client;
 * LAST UPDATED: 11/02/2023
 *
 * NOTES: This file contains methods needed to get JSON data from the DND5E API... will eventually type cast them into C# objects
+*       ----- We are keeping this so far just in case we need it but...
+*       -----THIS IS DEPRECIATED PLEASE USE DNDConsumer.cs
 * 
 * API: https://www.dnd5eapi.co/
 *
