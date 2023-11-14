@@ -23,6 +23,15 @@ namespace DnD_NPC_Generator.Controllers
         }
 
         [HttpGet]
+        public IActionResult Add()
+        {
+            ViewBag.Action = "Add";
+            ViewBag.Classes = context.NPCClasses.OrderBy(c => c.NPCClassId).ToList();
+            ViewBag.Races = context.NPCRaces.OrderBy(r => r.NPCRaceId).ToList();
+            return View("Edit", new NPC());
+        }
+
+        [HttpGet]
         public IActionResult Generate(string classChoice, string statChoice)
         {
             var service = new NPCService();
