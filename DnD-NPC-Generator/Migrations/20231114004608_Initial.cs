@@ -47,6 +47,7 @@ namespace DnD_NPC_Generator.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NPCClassId = table.Column<int>(type: "int", nullable: false),
                     NPCRaceId = table.Column<int>(type: "int", nullable: false),
+                    Subclass = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HitPoints = table.Column<int>(type: "int", nullable: false),
                     HitDie = table.Column<int>(type: "int", nullable: false),
                     HitDieCount = table.Column<int>(type: "int", nullable: false),
@@ -106,7 +107,9 @@ namespace DnD_NPC_Generator.Migrations
                     IEReligion = table.Column<bool>(type: "bit", nullable: false),
                     IESleightOfHand = table.Column<bool>(type: "bit", nullable: false),
                     IEStealth = table.Column<bool>(type: "bit", nullable: false),
-                    IESurvival = table.Column<bool>(type: "bit", nullable: false)
+                    IESurvival = table.Column<bool>(type: "bit", nullable: false),
+                    isSpellcaster = table.Column<bool>(type: "bit", nullable: false),
+                    spellData = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -162,8 +165,8 @@ namespace DnD_NPC_Generator.Migrations
 
             migrationBuilder.InsertData(
                 table: "NPCs",
-                columns: new[] { "NPCId", "AC", "ChaMod", "ChaSave", "ChaScore", "ConMod", "ConSave", "ConScore", "DexMod", "DexSave", "DexScore", "HitDie", "HitDieCount", "HitPoints", "IEAcrobatics", "IEAnimalHandling", "IEArcana", "IEAthletic", "IEDeception", "IEHistory", "IEInsight", "IEIntimidation", "IEInvestigation", "IEMedicine", "IENature", "IEPerception", "IEPerformance", "IEPersuasion", "IEReligion", "IESleightOfHand", "IEStealth", "IESurvival", "IPAcrobatics", "IPAnimalHandling", "IPArcana", "IPAthletic", "IPDeception", "IPHistory", "IPInsight", "IPIntimidation", "IPInvestigation", "IPMedicine", "IPNature", "IPPerception", "IPPerformance", "IPPersuasion", "IPReligion", "IPSleightOfHand", "IPStealth", "IPSurvival", "IntMod", "IntSave", "IntScore", "Level", "NPCClassId", "NPCRaceId", "Name", "ProfMod", "StrMod", "StrSave", "StrScore", "WisMod", "WisSave", "WisScore" },
-                values: new object[] { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, 0, 0, 0, 1, 1, 4, "Test NPC", 0, 0, 0, 0, 0, 0, 0 });
+                columns: new[] { "NPCId", "AC", "ChaMod", "ChaSave", "ChaScore", "ConMod", "ConSave", "ConScore", "DexMod", "DexSave", "DexScore", "HitDie", "HitDieCount", "HitPoints", "IEAcrobatics", "IEAnimalHandling", "IEArcana", "IEAthletic", "IEDeception", "IEHistory", "IEInsight", "IEIntimidation", "IEInvestigation", "IEMedicine", "IENature", "IEPerception", "IEPerformance", "IEPersuasion", "IEReligion", "IESleightOfHand", "IEStealth", "IESurvival", "IPAcrobatics", "IPAnimalHandling", "IPArcana", "IPAthletic", "IPDeception", "IPHistory", "IPInsight", "IPIntimidation", "IPInvestigation", "IPMedicine", "IPNature", "IPPerception", "IPPerformance", "IPPersuasion", "IPReligion", "IPSleightOfHand", "IPStealth", "IPSurvival", "IntMod", "IntSave", "IntScore", "Level", "NPCClassId", "NPCRaceId", "Name", "ProfMod", "StrMod", "StrSave", "StrScore", "Subclass", "WisMod", "WisSave", "WisScore", "isSpellcaster", "spellData" },
+                values: new object[] { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, 0, 0, 0, 1, 1, 4, "Test NPC", 0, 0, 0, 0, "", 0, 0, 0, false, "" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_NPCs_NPCClassId",

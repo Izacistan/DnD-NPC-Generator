@@ -348,7 +348,7 @@ namespace DnD_NPC_Generator.Services
         public void SetSubclass(ref NPC NPChar)
         {
             List<string> possibilities = new List<string>();
-            switch (NPChar.Class)
+            switch (NPChar.NPCClass.Name)
             {
                 case "Barbarian":
                     possibilities.Add("Berserker");
