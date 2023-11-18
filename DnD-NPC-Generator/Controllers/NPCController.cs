@@ -1,23 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using DnD_NPC_Generator.Models;
 using DnD_NPC_Generator.Sessions;
 using DnD_NPC_Generator.Services;
 using Microsoft.EntityFrameworkCore;
+using DnD_NPC_Generator.Repository;
 
 namespace DnD_NPC_Generator.Controllers
 {
     public class NPCController : Controller
     {
-        private NPCContext context { get; set; }
+        private ILegionRepository legion { get; set; }
 
-        public NPCController(NPCContext ctx) => context = ctx;
+        public NPCController(ILegionRepository legion) => this.legion = legion;
 
         [HttpGet]
         public IActionResult Index()
         {
             var model = new NPCListView()
             {
-                NPCs = context.NPCs.Include(n => n.NPCClass).Include(n => n.NPCRace).OrderBy(c => c.NPCId).ToList()
+                NPCs = this.legion.GetAllNpcs()
             };
             return View(model);
         }
@@ -26,8 +28,8 @@ namespace DnD_NPC_Generator.Controllers
         public IActionResult Add()
         {
             ViewBag.Action = "Add";
-            ViewBag.Classes = context.NPCClasses.OrderBy(c => c.NPCClassId).ToList();
-            ViewBag.Races = context.NPCRaces.OrderBy(r => r.NPCRaceId).ToList();
+            ViewBag.Classes = this.legion.GetAllClasses();
+            ViewBag.Races = this.legion.GetAllRaces();
             return View("Edit", new NPC());
         }
 
@@ -36,8 +38,8 @@ namespace DnD_NPC_Generator.Controllers
         {
             var service = new NPCService();
             var npc = new NPC();
-            ViewBag.Classes = context.NPCClasses.OrderBy(c => c.NPCClassId).ToList();
-            ViewBag.Races = context.NPCRaces.OrderBy(r => r.NPCRaceId).ToList();
+            ViewBag.Classes = this.legion.GetAllClasses();
+            ViewBag.Races = this.legion.GetAllRaces();
             service.GenerateNPC(ref npc, ViewBag.Classes, classChoice, statChoice);
             ViewBag.Action = "Generate";
 
@@ -48,9 +50,9 @@ namespace DnD_NPC_Generator.Controllers
         public IActionResult Edit(int id)
         {
             ViewBag.Action = "Edit";
-            ViewBag.Classes = context.NPCClasses.OrderBy(c => c.NPCClassId).ToList();
-            ViewBag.Races = context.NPCRaces.OrderBy(r => r.NPCRaceId).ToList();
-            var NPC = context.NPCs.Find(id);
+            ViewBag.Classes = this.legion.GetAllClasses();
+            ViewBag.Races = this.legion.GetAllRaces();
+            var NPC = this.legion.FindNpc(id);
             return View(NPC);
         }
 
@@ -66,20 +68,20 @@ namespace DnD_NPC_Generator.Controllers
             {
                 if (npc.NPCId == 0)
                 {
-                    context.NPCs.Add(npc);
+                    this.legion.AddNpc(npc);
                 }
                 else
                 {
-                    context.NPCs.Update(npc);
+                    this.legion.UpdateNpc(npc);
                 }
-                context.SaveChanges();
+                this.legion.Save();
                 return RedirectToAction("Index");
             }
             else
             {
                 ViewBag.Action = (npc.NPCId == 0) ? "Add" : "Edit";
-                ViewBag.Classes = context.NPCClasses.OrderBy(c => c.NPCClassId).ToList();
-                ViewBag.Races = context.NPCRaces.OrderBy(r => r.NPCRaceId).ToList();
+                ViewBag.Classes = this.legion.GetAllClasses();
+                ViewBag.Races = this.legion.GetAllRaces();
                 return View(npc);
             }
         }
@@ -87,15 +89,15 @@ namespace DnD_NPC_Generator.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            var npc = context.NPCs.Find(id);
+            var npc = this.legion.FindNpc(id);
             return View(npc);
         }
 
         [HttpPost]
         public IActionResult Delete(NPC npc)
         {
-            context.NPCs.Remove(npc);
-            context.SaveChanges();
+            this.legion.DeleteNpc(npc);
+            this.legion.Save();
             return RedirectToAction("Index");
         }
         [HttpGet]
@@ -114,7 +116,7 @@ namespace DnD_NPC_Generator.Controllers
         [HttpPost]
         public RedirectToActionResult Add(NPC npc)
         {
-            NPC character = context.NPCs.Where(n => n.NPCId == npc.NPCId).FirstOrDefault();
+            NPC character = this.legion.GetNpc(npc.NPCId);
 
             var session = new NPCSession(HttpContext.Session);
             var npcs = session.GetViewNPCs();
