@@ -4,6 +4,7 @@ using GraphQL.Client.Abstractions;
 using GraphQL.Client.Serializer.Newtonsoft;
 using GraphQL.Client.Http;
 using DnD_NPC_Generator.WebAPI;
+using DnD_NPC_Generator.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
 
+builder.Services.AddScoped<ILegionRepository, LegionRepository>();
 builder.Services.AddScoped<IGraphQLClient>(s => new GraphQLHttpClient(builder.Configuration.GetConnectionString("GraphQLURI"), new NewtonsoftJsonSerializer()));
 builder.Services.AddScoped<DNDConsumer>();
 
