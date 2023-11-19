@@ -1,0 +1,21 @@
+﻿<!--
+/**
+* AUTHOR: Halmar Arteaga
+* DATE: 11/18/2023
+* LAST UPDATED: 11/18/2023
+*/
+-->
+@model SpellListView
+
+<!--MENU SECTION-->
+<form>
+    <!-- add filters here to filter through selection -->
+</form>
+
+<!-- SPELLS SHOWING -->
+<div class="accordion">
+    @foreach (Spell sp in Model.Spells)
+    {
+        <partial name="_SpellViewPanel" model="@sp" />
+    }
+</div>

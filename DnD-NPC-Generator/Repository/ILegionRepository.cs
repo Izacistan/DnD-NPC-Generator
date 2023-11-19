@@ -1,4 +1,10 @@
-﻿using DnD_NPC_Generator.Models;
+﻿/** 
+* AUTHOR: Halmar Arteaga
+* DATE: 11/18/2023
+* LAST UPDATED: 11/18/2023
+*/
+
+using DnD_NPC_Generator.Models;
 
 namespace DnD_NPC_Generator.Repository
 {

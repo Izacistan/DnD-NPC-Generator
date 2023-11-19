@@ -12,7 +12,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
 
+//Database Repository
 builder.Services.AddScoped<ILegionRepository, LegionRepository>();
+//Web API Scopes
 builder.Services.AddScoped<IGraphQLClient>(s => new GraphQLHttpClient(builder.Configuration.GetConnectionString("GraphQLURI"), new NewtonsoftJsonSerializer()));
 builder.Services.AddScoped<DNDConsumer>();
 

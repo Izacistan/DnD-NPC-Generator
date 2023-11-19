@@ -65,6 +65,7 @@ namespace DnD_NPC_Generator.WebAPI
                 Query = @"
                         query Spells {
                             spells {
+                                index
                                 name
                                 desc
                                 higher_level
@@ -79,6 +80,16 @@ namespace DnD_NPC_Generator.WebAPI
                                 attack_type
                                 school {
                                     name
+                                }
+                                damage {
+                                    damage_type {
+                                        name
+                                    }
+                                }
+                                dc {
+                                    type {
+                                        name
+                                    }
                                 }
                                 classes {
                                     name
@@ -99,28 +110,39 @@ namespace DnD_NPC_Generator.WebAPI
             var query = new GraphQLRequest
             {
                 Query = @"
-                    query Spell($index: String) {
-                      spell(index: $index) {
-                        name
-                        desc
-                        higher_level
-                        range
-                        components
-                        material
-                        ritual
-                        duration
-                        concentration
-                        casting_time
-                        level
-                        attack_type
-                        school {
-                          name
-                        }
-                        classes {
-                          name
-                        }
-                      }
-                    }",
+                        query Spell($index: String) {
+                            spell(index: $index) {
+                                index
+                                name
+                                desc
+                                higher_level
+                                range
+                                components
+                                material
+                                ritual
+                                duration
+                                concentration
+                                casting_time
+                                level
+                                attack_type
+                                school {
+                                    name
+                                }
+                                damage {
+                                    damage_type {
+                                        name
+                                    }
+                                }
+                                dc {
+                                    type {
+                                        name
+                                    }
+                                }
+                                classes {
+                                    name
+                                }
+                            }
+                        }",
                 Variables = new { index = search }
             };
 
