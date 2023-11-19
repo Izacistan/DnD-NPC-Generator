@@ -1,0 +1,130 @@
+﻿<!--
+/**
+* AUTHOR: Halmar Arteaga
+* DATE: 11/18/2023
+* LAST UPDATED: 11/18/2023
+*/
+-->
+@model Spell
+
+@{
+    string CheckLevel(Spell s)
+    {
+        if (s.Level == 0)
+        {
+            return "Cantrip";
+        } else
+        {
+            return s.Level.ToString();
+        }
+    }
+    string CheckDamage(Spell s)
+    {
+        if(s.Damage == null)
+        {
+            return "--";
+        } else
+        {
+            return s.Damage.Damage_type.Name;
+        }
+    }
+    string CheckAttack(Spell s)
+    {
+        if(s.Attack_type == null)
+        {
+            if(s.Dc == null)
+            {
+                return "--";
+            } else
+            {
+                return s.Dc.Type.Name + " Save";
+            }
+        } else
+        {
+            return s.Attack_type;
+        }
+    }
+}
+
+<div class="accordion-item">
+    <h2 class="accordion-header">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel-@Model.Index" aria-controls="panel-@Model.Index" aria-expanded="false">
+            @Model.Name
+        </button>
+    </h2>
+
+    <div id="panel-@Model.Index" class="accordion-collapse collapse">
+        <div class="accordion-body">
+            <div class="spell-info container text-center">
+                <div class="row">
+                    <div class="col">
+                        <b>LEVEL</b>
+                        <p>@CheckLevel(Model)</p>
+                    </div>
+                    <div class="col">
+                        <b>CASTING TIME</b>
+                        <p>@Model.Casting_time</p>
+                    </div>
+                    <div class="col">
+                        <b>RANGE/AREA</b>
+                        <p>@Model.Range</p>
+                    </div>
+                    <div class="col">
+                        <b>COMPONENTS</b>
+                        <p>
+                            @foreach (string component in Model.Components)
+                            {
+                                <span>@component</span>
+                            }
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <b>DURATION</b>
+                        <p>@Model.Duration</p>
+                    </div>
+                    <div class="col">
+                        <b>SCHOOL</b>
+                        <p>@Model.School.Name</p>
+                    </div>
+                    <div class="col">
+                        <b>ATTACK/SAVE</b>
+                        <p>@CheckAttack(Model)</p>
+                    </div>
+                    <div class="col">
+                        <b>DAMAGE/EFFECT</b>
+                        <p>@CheckDamage(Model)</p>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div id="spell-desc">
+                @if(Model.Material != null)
+                {
+                    <p class="text-info">Material: @Model.Material</p>
+                }
+
+                @foreach(string para in Model.Desc)
+                {
+                    <p>@para</p>
+                }
+
+                @if(Model.Higher_level != null)
+                {
+                    @for(int index = 0; index < Model.Higher_level.Count; index++)
+                    {
+                        <p>
+                        @if(index == 0)
+                        {
+                            <strong>At Higher Levels: </strong>
+                        } 
+
+                        @Model.Higher_level[index]
+                        </p>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
