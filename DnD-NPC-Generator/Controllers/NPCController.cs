@@ -113,6 +113,17 @@ namespace DnD_NPC_Generator.Controllers
             return View(model);
         }
 
+        public IActionResult User()
+        {
+            //Get all NPCs from session
+            var session = new NPCSession(HttpContext.Session);
+            var model = new NPCListView()
+            {
+                NPCs = session.GetViewNPCs()
+            };
+            return View(model);
+        }
+
         [HttpPost]
         public RedirectToActionResult Add(NPC npc)
         {

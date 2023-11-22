@@ -1,0 +1,99 @@
+﻿@using DnD_NPC_Generator.Sessions;
+@model NPCListView;
+
+@{
+    ViewData["Title"] = "User Profile";
+}
+<!--
+    AUTHOR: Isaac Hillaker
+    DATE: 11/21/2023
+    LAST UPDATED: 11/21/2023
+
+    NOTES:
+
+    UPDATE: This is currently an extremely basic layout for
+    the User View. It is divided into two columns: User
+    Profile (Left) and other users/NPCs (right).
+
+    Headlines are not dynamic at the moment, will attach to
+    display the user's name.
+-->
+
+<div class="user-profile_sidebar_grid page-center">
+    <!-- Column 1: User Profile & NPCs -->
+    <section id="section_user-profile">
+        <div class="user-profile_wrap">
+            <div class="username_wrap">
+                <h2>User's Name Here</h2>
+                <h3>Subtitle</h3>
+            </div>
+            <!-- User's NPCs -->
+            @{
+                var session = new NPCSession(Context.Session);
+                @if (session.GetNPCCount() > 0)
+                {
+                    <h5 class="btn btn-primary p-2">
+                        <a asp-action="Display" class="text-white">Display NPCs</a>
+
+                        <span class="badge badge-light">
+                            @session.GetNPCCount()
+                        </span>
+                    </h5>
+                }
+            }
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Class</th>
+                        <th>Race</th>
+                        <th>Level</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var NPC in Model.NPCs)
+                    {
+                        <tr>
+                            <td>@NPC.Name</td>
+                            <td>@NPC.NPCClass.Name</td>
+                            <td>@NPC.NPCRace.Name</td>
+                            <td>@NPC.Level</td>
+                            <td>
+                                <a asp-controller="NPC" asp-action="Edit" asp-route-id="@NPC.NPCId">Edit</a>
+                                <a asp-controller="NPC" asp-action="Delete" asp-route-id="@NPC.NPCId">Delete</a>
+                                <form asp-action="Add" method="post">
+                                    <button type="submit" class="btn btn-primary">Add to View</button>
+                                    <input type="hidden" asp-for="@NPC.NPCId" />
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Column 2: Sidebar CONTENT/STRUCTURE TO BE CHANGED-->
+    <section id="section_user-profile">
+        <div class="user-profile_wrap">
+            <div class="username_wrap">
+                <h2>User's Name Here</h2>
+                <h3>Subtitle</h3>
+            </div>
+            <!-- User's NPCs -->
+            @{
+                @if (session.GetNPCCount() > 0)
+                {
+                    <h5 class="btn btn-primary p-2">
+                        <a asp-action="Display" class="text-white">Display NPCs</a>
+
+                        <span class="badge badge-light">
+                            @session.GetNPCCount()
+                        </span>
+                    </h5>
+                }
+            }
+        </div>
+    </section>
+</div>
