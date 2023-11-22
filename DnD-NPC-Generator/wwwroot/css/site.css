@@ -56,6 +56,24 @@ p {
     font-size: 1.2em;
 }
 
+/***********************
+PROFILE VIEW STYLES
+***********************/
+
+.user-profile_sidebar_grid {
+    display: grid;
+    grid-gap: 1em;
+}
+
+#section_user-profile {
+    border: 5px red solid;
+    min-height: 350px;
+}
+
+.username_wrap h2, .username_wrap h3 {
+    text-align: center;
+}
+
 /* BUTTONS */
 
 .button-wrap {
@@ -180,4 +198,11 @@ input[type="text"], input[type="password"], input[type="email"] {
 input[type="submit"]:hover {
     cursor: pointer;
     transform: translateY(5px);
+}
+
+@media only screen and (min-width: 786px) {
+
+    .user-profile_sidebar_grid {
+        grid-template-columns: auto auto;
+    }
 }
