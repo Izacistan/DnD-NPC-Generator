@@ -110,6 +110,8 @@ namespace DnD_NPC_Generator.Models
         //Spell Information
         public bool isSpellcaster { get; set; } = false;
 
+        public List<int> SpellSlots { get; set; } = null!;
+
         public string spellData { get; set; } = string.Empty; //Store JSON spell data in here (slots, known spells, Spellbook)
 
         public void UpdateSpellData()

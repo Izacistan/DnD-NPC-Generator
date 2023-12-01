@@ -431,6 +431,320 @@ namespace DnD_NPC_Generator.Services
             NPChar.Subclass = possibilities.ElementAt(roll);
         }
 
+        public void SetFullCasterSlots(ref NPC npc)
+        {
+            //Initialize spell slots for visibility
+            int Cantrips = 0;
+            int First = 0;
+            int Second = 0;
+            int Third = 0;
+            int Fourth = 0;
+            int Fifth = 0;
+            int Sixth = 0;
+            int Seventh = 0;
+            int Eighth = 0;
+            int Nineth = 0;
+
+            //Set starting cantrips
+            switch (npc.NPCClass.Name)
+            {
+                case "Bard":
+                    Cantrips = 2;
+                    break;
+                case "Cleric":
+                    Cantrips = 3;
+                    break;
+                case "Druid":
+                    Cantrips = 2;
+                    break;
+                case "Sorcerer":
+                    Cantrips = 4;
+                    break;
+                case "Wizard":
+                    Cantrips = 3;
+                    break;
+                default: break;
+            }
+
+            //Iterate through levels and make changes for each level.
+            if (npc.Level >= 1)
+            {
+                First += 2;
+            }
+            if (npc.Level >= 2)
+            {
+                First += 1;
+            }
+            if (npc.Level >= 3)
+            {
+                First += 1;
+                Second += 2;
+            }
+            if (npc.Level >= 4)
+            {
+                Cantrips += 1;
+                Second += 1;
+            }
+            if (npc.Level >= 5)
+            {
+                Third += 2;
+            }
+            if (npc.Level >= 6)
+            {
+                Third += 1;
+            }
+            if (npc.Level >= 7)
+            {
+                Fourth += 1;
+            }
+            if (npc.Level >= 8)
+            {
+                Fourth += 1;
+            }
+            if (npc.Level >= 9)
+            {
+                Fourth += 1;
+                Fifth += 1;
+            }
+            if (npc.Level >= 10)
+            {
+                Cantrips += 1;
+                Fifth += 1;
+            }
+            if (npc.Level >= 11)
+            {
+                Fifth += 1;
+                Sixth += 1;
+            }
+            if (npc.Level >= 13)
+            {
+                Seventh += 1;
+            }
+            if (npc.Level >= 15)
+            {
+                Eighth += 1;
+            }
+            if (npc.Level >= 17)
+            {
+                Nineth += 1;
+            }
+            if (npc.Level >= 19)
+            {
+                Sixth += 1;
+            }
+            if (npc.Level == 20)
+            {
+                Seventh += 1;
+            }
+
+            npc.SpellSlots.Add(Cantrips);
+            npc.SpellSlots.Add(First);
+            npc.SpellSlots.Add(Second);
+            npc.SpellSlots.Add(Third);
+            npc.SpellSlots.Add(Fourth);
+            npc.SpellSlots.Add(Fifth);
+            npc.SpellSlots.Add(Sixth);
+            npc.SpellSlots.Add(Seventh);
+            npc.SpellSlots.Add(Eighth);
+            npc.SpellSlots.Add(Nineth);
+        }
+
+        public void SetPartialCasterSlots(ref NPC npc)
+        {
+            //Initialize spell slots for visibility
+            int Cantrips = 0;
+            int First = 0;
+            int Second = 0;
+            int Third = 0;
+            int Fourth = 0;
+            int Fifth = 0;
+
+            //Iterate through levels and make changes for each level.
+            if (npc.Level >= 2)
+            {
+                First += 2;
+            }
+            if (npc.Level >= 3)
+            {
+                First += 1;
+            }
+            if (npc.Level >= 5)
+            {
+                First += 1;
+                Second += 2;
+            }
+            if (npc.Level >= 7)
+            {
+                Second += 1;
+            }
+            if (npc.Level >= 9)
+            {
+                Third += 2;
+            }
+            if (npc.Level >= 11)
+            {
+                Third += 1;
+            }
+            if (npc.Level >= 13)
+            {
+                Fourth += 1;
+            }
+            if (npc.Level >= 15)
+            {
+                Fourth += 1;
+            }
+            if (npc.Level >= 17)
+            {
+                Fourth += 1;
+                Fifth += 1;
+            }
+            if (npc.Level >= 19)
+            {
+                Fifth += 1;
+            }
+
+            npc.SpellSlots.Add(Cantrips);
+            npc.SpellSlots.Add(First);
+            npc.SpellSlots.Add(Second);
+            npc.SpellSlots.Add(Third);
+            npc.SpellSlots.Add(Fourth);
+            npc.SpellSlots.Add(Fifth);
+        }
+        public void SetArcaneEldritch(ref NPC npc)
+        {
+            //Initialize spell slots for visibility
+            int Cantrips = 0;
+            int First = 0;
+            int Second = 0;
+            int Third = 0;
+            int Fourth = 0;
+
+            if (npc.Subclass == "Eldritch Knight")
+            {
+                Cantrips = 2;
+                if (npc.Level >= 10) { Cantrips += 1; }
+            }
+
+            //Iterate through levels and make changes for each level.
+            if (npc.Level >= 3)
+            {
+                First += 2;
+            }
+            if (npc.Level >= 4)
+            {
+                First += 1;
+            }
+            if (npc.Level >= 7)
+            {
+                First += 1;
+                Second += 2;
+            }
+            if (npc.Level >= 10)
+            {
+                Second += 1;
+            }
+            if (npc.Level >= 13)
+            {
+                Third += 2;
+            }
+            if (npc.Level >= 16)
+            {
+                Third += 1;
+            }
+            if (npc.Level >= 19)
+            {
+                Fourth += 1;
+            }
+
+            npc.SpellSlots.Add(Cantrips);
+            npc.SpellSlots.Add(First);
+            npc.SpellSlots.Add(Second);
+            npc.SpellSlots.Add(Third);
+            npc.SpellSlots.Add(Fourth);
+        }
+
+        public void SetWarlocklCasterSlots(ref NPC npc)
+        {
+            //Initialize spell slots for visibility
+            int Cantrips = 0;
+            int First = 0;
+            int Second = 0;
+            int Third = 0;
+            int Fourth = 0;
+            int Fifth = 0;
+
+            int Slots = 0;
+
+            //Iterate through levels and make changes for each level.
+            if (npc.Level >= 1){ Slots += 1; }
+            if (npc.Level >= 2) { Slots += 1; }
+            if (npc.Level >= 11) { Slots += 1; }
+            if (npc.Level >= 17) { Slots += 1; }
+
+            if (npc.Level < 3) { First = Slots; }
+            if (npc.Level >= 3 && npc.Level < 5) { Second = Slots; }
+            if (npc.Level >= 5 && npc.Level < 7) { Third = Slots; }
+            if (npc.Level >= 7 && npc.Level < 9) { Fourth = Slots; }
+            if (npc.Level >= 9) { Fifth = Slots; }
+
+            npc.SpellSlots.Add(Cantrips);
+            npc.SpellSlots.Add(First);
+            npc.SpellSlots.Add(Second);
+            npc.SpellSlots.Add(Third);
+            npc.SpellSlots.Add(Fourth);
+            npc.SpellSlots.Add(Fifth);
+        }
+
+        public void SetSpellSlots(ref NPC npc)
+        {
+            //For full Casters
+            switch (npc.NPCClass.Name)
+            {
+                case "Wizard":
+                    SetFullCasterSlots(ref npc);
+                    break;
+                case "Sorcerer":
+                    SetFullCasterSlots(ref npc);
+                    break;
+                case "Druid":
+                    SetFullCasterSlots(ref npc);
+                    break;
+                case "Cleric":
+                    SetFullCasterSlots(ref npc);
+                    break;
+                case "Bard":
+                    SetFullCasterSlots(ref npc);
+                    break;
+                case "Warlock":
+                    SetWarlocklCasterSlots(ref npc);
+                    break;
+                default: break;
+            }
+            //For partial Casters
+            switch (npc.NPCClass.Name)
+            {
+                case "Paladin":
+                    SetPartialCasterSlots(ref npc);
+                    break;
+                case "Ranger":
+                    SetPartialCasterSlots(ref npc);
+                    break;
+                case "Fighter":
+                    if (npc.Subclass == "Eldritch Knight")
+                    {
+                        SetArcaneEldritch(ref npc);
+                    }
+                    break;
+                case "Rogue":
+                    if (npc.Subclass == "Arcane Trickster")
+                    {
+                        SetArcaneEldritch(ref npc);
+                    }
+                    break;
+                default: break;
+            }
+        }
+
         public void GenerateNPC(ref NPC npc, List<NPCClass> classes, string classChoice, string statChoice)
         {
             if (npc == null) return;
@@ -442,6 +756,11 @@ namespace DnD_NPC_Generator.Services
             SetStats(ref npc, stats);//Set the stats
             SetSaveProficiencies(ref npc);
             SetSubclass(ref npc);
+            if (npc.isSpellcaster)
+            {
+                SetSpellSlots(ref npc);
+            }
+
         }
     }
 } 
