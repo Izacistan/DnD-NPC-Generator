@@ -46,6 +46,7 @@ using DnD_NPC_Generator.Models;
 using DnD_NPC_Generator.WebAPI.ResponseTypes;
 using GraphQL;
 using GraphQL.Client.Abstractions;
+using GraphQL.Client.Abstractions.Utilities;
 
 namespace DnD_NPC_Generator.WebAPI
 {
@@ -148,6 +149,50 @@ namespace DnD_NPC_Generator.WebAPI
 
             var response = await client.SendQueryAsync<ResponseSpellType>(query);
             return response.Data.Spell;
+        }
+
+        public async Task<List<Spell>> GetSpellsByClass(string clName) {
+            string search = clName.ToLowerCase().Replace(" ", "-");
+            var query = new GraphQLRequest
+            {
+                Query = @"
+                        query Spell($term: StringFilter) {
+                            spells(class: $term) {
+                                index
+                                name
+                                desc
+                                higher_level
+                                range
+                                components
+                                material
+                                ritual
+                                duration
+                                concentration
+                                casting_time
+                                level
+                                attack_type
+                                school {
+                                    name
+                                }
+                                damage {
+                                    damage_type {
+                                        name
+                                    }
+                                }
+                                dc {
+                                    type {
+                                        name
+                                    }
+                                }
+                                classes {
+                                    name
+                                }
+                            }
+                        }",
+                Variables = new { term = search }
+            };
+            var response = await client.SendQueryAsync<ResponseSpellsCollectionType>(query);
+            return response.Data.Spells;
         }
 
         public async Task<ApiClass> GetClassInfo(string id)

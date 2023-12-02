@@ -21,9 +21,9 @@ namespace DnD_NPC_Generator.Controllers
             return View(spellList);
         }
 
-        public async Task<IActionResult> Test(string id = "fighter")
+        public async Task<IActionResult> Test(string id = "cleric")
         {
-            return Ok(await consumer.GetClassInfo(id));
+            return Ok(await consumer.GetSpellsByClass(id));
         }
     }
 }
