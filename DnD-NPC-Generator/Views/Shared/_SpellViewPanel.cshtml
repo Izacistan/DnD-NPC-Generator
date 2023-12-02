@@ -46,9 +46,9 @@
     }
 }
 
-<div class="accordion-item">
+<div class="accordion-item spell-panel">
     <h2 class="accordion-header">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel-@Model.Index" aria-controls="panel-@Model.Index" aria-expanded="false">
+        <button class="accordion-button spell-name" type="button" data-bs-toggle="collapse" data-bs-target="#panel-@Model.Index" aria-controls="panel-@Model.Index" aria-expanded="false">
             @Model.Name
         </button>
     </h2>
@@ -59,7 +59,7 @@
                 <div class="row">
                     <div class="col">
                         <b>LEVEL</b>
-                        <p>@CheckLevel(Model)</p>
+                        <p class="spell-level">@CheckLevel(Model)</p>
                     </div>
                     <div class="col">
                         <b>CASTING TIME</b>
@@ -86,7 +86,7 @@
                     </div>
                     <div class="col">
                         <b>SCHOOL</b>
-                        <p>@Model.School.Name</p>
+                        <p class="spell-school">@Model.School.Name</p>
                     </div>
                     <div class="col">
                         <b>ATTACK/SAVE</b>
@@ -123,6 +123,12 @@
                         @Model.Higher_level[index]
                         </p>
                     }
+                }
+            </div>
+            <div id="spell-classes" class="d-flex justify-content-around text-secondary">
+                @foreach (var c in Model.Classes)
+                {
+                    <span class="spell-@c.Name.ToLower()">@c.Name</span>
                 }
             </div>
         </div>
