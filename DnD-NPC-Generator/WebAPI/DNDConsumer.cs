@@ -149,5 +149,83 @@ namespace DnD_NPC_Generator.WebAPI
             var response = await client.SendQueryAsync<ResponseSpellType>(query);
             return response.Data.Spell;
         }
+
+        public async Task<ApiClass> GetClassInfo(string id)
+        {
+            string search = id.ToLower().Replace(" ", "-");
+            var query = new GraphQLRequest
+            {
+                Query = @"
+                        query Class($index: String) {
+                          class(index: $index) {
+                            index
+                            name
+                            hit_die
+                            proficiencies {
+                              index
+                              name
+                            }
+                            saving_throws {
+                              index
+                              name
+                              full_name
+                            }
+                            class_levels {
+                              level
+                              ability_score_bonuses
+                              features {
+                                index
+                                name
+                                level
+                                desc
+                              }
+                            }
+                            spellcasting {
+                              info {
+                                name
+                              }
+                              level
+                              spellcasting_ability {
+                                name
+                                full_name
+                                index
+                              }
+                            }
+                            subclasses {
+                              index
+                              name
+                              subclass_levels {
+                                index
+                                ability_score_bonuses
+                                level
+                                features {
+                                  index
+                                  name
+                                  level
+                                  desc
+                                }
+                                spellcasting {
+                                  cantrips_known
+                                  spell_slots_level_1
+                                  spell_slots_level_2
+                                  spell_slots_level_3
+                                  spell_slots_level_4
+                                  spell_slots_level_5
+                                  spell_slots_level_6
+                                  spell_slots_level_7
+                                  spell_slots_level_8
+                                  spell_slots_level_9
+                                  spells_known
+                                }
+                              }
+                            }
+                          }
+                        }",
+                Variables = new { index = search }
+            };
+
+            var response = await client.SendQueryAsync<ResponseClassType>(query);
+            return response.Data.Class;
+        }
     }
 }
