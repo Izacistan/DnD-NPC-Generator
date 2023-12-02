@@ -2,18 +2,52 @@
 /**
 * AUTHOR: Halmar Arteaga
 * DATE: 11/18/2023
-* LAST UPDATED: 11/18/2023
+* LAST UPDATED: 12/1/2023
 */
 -->
 @model SpellListView
+@section Scripts {
+    <script src="~/js/spell-filter.js"></script>
+}
 
 <!--MENU SECTION-->
-<form>
-    <!-- add filters here to filter through selection -->
-</form>
+<div id="spell-filters" class="d-flex justify-content-around">
+    <input id="filter-name" type="text" placeholder="Search..." class="col-md-2" />
+    <div class="filter-holder">
+        <label for="filter-class">Class:</label>
+        <select id="filter-class" class="form-select">
+            <option value="All">All</option>
+            @foreach (NPCClass c in ViewBag.Classes)
+            {
+                <option value="@c.Name">@c.Name</option>
+            }
+        </select>
+    </div>
+    <div class="filter-holder">
+        <label for="filter-level">Level:</label>
+        <select id="filter-level" class="form-select">
+            <option value="All">All</option>
+            <option value="cantrip">Cantrip</option>
+            @foreach (int value in Enumerable.Range(1, 9))
+            {
+                <option value="@value">@value</option>
+            }
+        </select>
+    </div>
+    <div class="filter-holder">
+        <label for="filter-school">School:</label>
+        <select id="filter-school" class="form-select">
+            <option value="All">All</option>
+            @foreach (string s in ViewBag.Schools)
+            {
+                <option value="@s.ToLower()">@s</option>
+            }
+        </select>
+    </div>
+</div>
 
 <!-- SPELLS SHOWING -->
-<div class="accordion">
+<div id="spell-list" class="accordion">
     @foreach (Spell sp in Model.Spells)
     {
         <partial name="_SpellViewPanel" model="@sp" />

@@ -4,6 +4,7 @@ using DnD_NPC_Generator.Services;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
+using System.Runtime.CompilerServices;
 
 namespace DnD_NPC_Generator.Models
 {
@@ -110,6 +111,7 @@ namespace DnD_NPC_Generator.Models
         //Spell Information
         public bool isSpellcaster { get; set; } = false;
 
+        [NotMapped]
         public List<int> SpellSlots { get; set; } = null!;
 
         public string spellData { get; set; } = string.Empty; //Store JSON spell data in here (slots, known spells, Spellbook)
