@@ -6,19 +6,24 @@ namespace DnD_NPC_Generator.Controllers
 {
     public class SpellController : Controller
     {
-        private readonly DNDConsumer spellApi;
+        private readonly DNDConsumer consumer;
 
         public SpellController(DNDConsumer consumer)
         {
-            this.spellApi = consumer;
+            this.consumer = consumer;
         }
 
         public async Task<IActionResult> Index()
         {
             SpellListView spellList = new SpellListView();
-            spellList.Spells = await spellApi.GetAllSpells();
+            spellList.Spells = await consumer.GetAllSpells();
 
             return View(spellList);
+        }
+
+        public async Task<IActionResult> Test(string id = "fighter")
+        {
+            return Ok(await consumer.GetClassInfo(id));
         }
     }
 }
