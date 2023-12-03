@@ -112,6 +112,7 @@ namespace DnD_NPC_Generator.Models
         public bool isSpellcaster { get; set; } = false;
 
         [NotMapped]
+        [ValidateNever]
         public List<int> SpellSlots { get; set; } = null!;
 
         public string spellData { get; set; } = string.Empty; //Store JSON spell data in here (slots, known spells, Spellbook)
@@ -137,6 +138,7 @@ namespace DnD_NPC_Generator.Models
         }
 
         [NotMapped]
+        [ValidateNever]
         public List<string> Spells { get; set; }
 
         public NPC() { }
