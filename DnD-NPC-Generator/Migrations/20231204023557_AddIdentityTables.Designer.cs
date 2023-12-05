@@ -4,6 +4,7 @@ using DnD_NPC_Generator.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DnD_NPC_Generator.Migrations
 {
     [DbContext(typeof(NPCContext))]
-    partial class NPCContextModelSnapshot : ModelSnapshot
+    [Migration("20231204023557_AddIdentityTables")]
+    partial class AddIdentityTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -301,8 +303,8 @@ namespace DnD_NPC_Generator.Migrations
                             IntSave = 0,
                             IntScore = 0,
                             Level = 1,
-                            NPCClassId = 2,
-                            NPCRaceId = 5,
+                            NPCClassId = 1,
+                            NPCRaceId = 4,
                             Name = "Test NPC",
                             ProfMod = 0,
                             StrMod = 0,
@@ -337,66 +339,61 @@ namespace DnD_NPC_Generator.Migrations
                         new
                         {
                             NPCClassId = 1,
-                            Name = "Random"
-                        },
-                        new
-                        {
-                            NPCClassId = 2,
                             Name = "Barbarian"
                         },
                         new
                         {
-                            NPCClassId = 3,
+                            NPCClassId = 2,
                             Name = "Bard"
                         },
                         new
                         {
-                            NPCClassId = 4,
+                            NPCClassId = 3,
                             Name = "Cleric"
                         },
                         new
                         {
-                            NPCClassId = 5,
+                            NPCClassId = 4,
                             Name = "Druid"
                         },
                         new
                         {
-                            NPCClassId = 6,
+                            NPCClassId = 5,
                             Name = "Fighter"
                         },
                         new
                         {
-                            NPCClassId = 7,
+                            NPCClassId = 6,
                             Name = "Monk"
                         },
                         new
                         {
-                            NPCClassId = 8,
+                            NPCClassId = 7,
                             Name = "Paladin"
                         },
                         new
                         {
-                            NPCClassId = 9,
+                            NPCClassId = 8,
                             Name = "Ranger"
                         },
                         new
                         {
-                            NPCClassId = 10,
+                            NPCClassId = 9,
                             Name = "Rogue"
                         },
                         new
                         {
-                            NPCClassId = 11,
+                            NPCClassId = 10,
                             Name = "Sorcerer"
                         },
                         new
                         {
-                            NPCClassId = 12,
+                            NPCClassId = 11,
                             Name = "Warlock"
                         },
                         new
                         {
-                            NPCClassId = 13,
+                            NPCClassId = 12,
                             Name = "Wizard"
                         });
                 });
@@ -421,51 +418,46 @@ namespace DnD_NPC_Generator.Migrations
                         new
                         {
                             NPCRaceId = 1,
-                            Name = "Random"
-                        },
-                        new
-                        {
-                            NPCRaceId = 2,
                             Name = "Dwarf"
                         },
                         new
                         {
-                            NPCRaceId = 3,
+                            NPCRaceId = 2,
                             Name = "Elf"
                         },
                         new
                         {
-                            NPCRaceId = 4,
+                            NPCRaceId = 3,
                             Name = "Halfling"
                         },
                         new
                         {
-                            NPCRaceId = 5,
+                            NPCRaceId = 4,
                             Name = "Human"
                         },
                         new
                         {
-                            NPCRaceId = 6,
+                            NPCRaceId = 5,
                             Name = "Dragonborn"
                         },
                         new
                         {
-                            NPCRaceId = 7,
+                            NPCRaceId = 6,
                             Name = "Gnome"
                         },
                         new
                         {
-                            NPCRaceId = 8,
+                            NPCRaceId = 7,
                             Name = "Half-Elf"
                         },
                         new
                         {
-                            NPCRaceId = 9,
+                            NPCRaceId = 8,
                             Name = "Half-Orc"
                         },
                         new
                         {
-                            NPCRaceId = 10,
+                            NPCRaceId = 9,
                             Name = "Tiefling"
                         });
                 });

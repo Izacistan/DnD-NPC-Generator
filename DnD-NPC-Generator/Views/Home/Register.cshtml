@@ -1,8 +1,6 @@
-﻿@using DnD_NPC_Generator.Models;
-@model DnD_NPC_Generator.Models.LoginViewModel
-
+﻿@model RegisterViewModel;
 @{
-    ViewData["Title"] = "Login";
+    ViewBag.Title = "Register";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -17,24 +15,23 @@
 </head>
 <body class="page-wrap">
     <section class="login-form_wrap page-center">
+        <!-- SIGN UP Form -->
         <div class="login-section_wrap">
-            <h2 class="subhead align-center">Login</h2>
-            <!-- LOGIN Form -->
-            <form method="post" asp-action="LogIn" asp-route-returnUrl="@Model.ReturnUrl" class="login-form">
+            <h2 class="subhead align-center">Sign-Up</h2>
+            <form method="post" asp-action="Register" class="login-form">
                 <div class="login_label-input_wrap">
 
                     <label for="UserName">Username</label>
-                    <input asp-for="UserName" placeholder="Enter username" />
+                    <input asp-for="UserName" placeholder="Enter username"/>
                     <span asp-validation-for="UserName" class="text-danger"></span>
 
                     <label for="password">Password</label>
-                    <input type="password" asp-for="Password" name="password" placeholder="Enter your password">
+                    <input asp-for="Password" type="password" name="password" placeholder="Enter your password">
                     <span asp-validation-for="Password" class="text-danger"></span>
 
-                    <input type="checkbox" title="Remember Me" asp-for="RememberMe"/>
-                    <label>Remember Me</label>
+                    <input asp-for="ConfirmPassword" type="password" name="password" placeholder="Enter your password">
 
-                    <input type="submit" name="submit-login" class="button-primary" value="Login">
+                    <input type="submit" name="submit-login" class="button-primary" value="Sign Up!">
                 </div>
             </form>
         </div>

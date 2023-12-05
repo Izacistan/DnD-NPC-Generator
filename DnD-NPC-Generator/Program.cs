@@ -5,6 +5,8 @@ using GraphQL.Client.Serializer.Newtonsoft;
 using GraphQL.Client.Http;
 using DnD_NPC_Generator.WebAPI;
 using DnD_NPC_Generator.Repository;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +27,16 @@ builder.Services.AddDbContext<NPCContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("NPCContext")));
 
+// Setup Identity
+builder.Services.AddIdentity<User, IdentityRole>(options =>
+{
+    options.Password.RequiredLength = 3;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireDigit = false;
+})
+    .AddEntityFrameworkStores<NPCContext>()
+    .AddDefaultTokenProviders();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -40,6 +52,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseSession();
@@ -47,5 +60,7 @@ app.UseSession();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+await NPCContext.CreateAdminUser(app.Services);
 
 app.Run();
