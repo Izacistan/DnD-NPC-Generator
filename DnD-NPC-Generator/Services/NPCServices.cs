@@ -56,7 +56,7 @@ namespace DnD_NPC_Generator.Services
             {
                 for (int j = 0; j < 4; j++)//Roll 4 d 6
                 {
-                    roll = dSix.Next(6)+1;//Roll 1 d 4
+                    roll = dSix.Next(6)+1;//Roll 1 d 6
                     FourDSix.Add(roll);//Add it to the 4d6
                 }
                 
@@ -75,6 +75,8 @@ namespace DnD_NPC_Generator.Services
                 FourDSix.Clear();//Clear the dice pool in preparation for starting again. 
                 //End dice roll loop for one stat block
 
+                stat = 0;
+                smallest = 10;
             }
             //End dice roll loop for all stat blocks. Should return referenced list
         }
