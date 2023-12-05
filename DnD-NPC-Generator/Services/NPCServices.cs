@@ -425,6 +425,9 @@ namespace DnD_NPC_Generator.Services
                     possibilities.Add("Necromancy");
                     possibilities.Add("Transmutation");
                     break;
+                default:
+                    possibilities.Add("404 class not found.");
+                    break;
             }
             Random subchoice = new Random();
             int roll = subchoice.Next(possibilities.Count());
