@@ -3,6 +3,7 @@ using DnD_NPC_Generator.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DnD_NPC_Generator.Migrations
 {
     [DbContext(typeof(NPCContext))]
-    partial class NPCContextModelSnapshot : ModelSnapshot
+    [Migration("20231205014839_ChangeClassAndRaceOrder")]
+    partial class ChangeClassAndRaceOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -295,8 +298,8 @@ namespace DnD_NPC_Generator.Migrations
                             IntSave = 0,
                             IntScore = 0,
                             Level = 1,
-                            NPCClassId = 2,
-                            NPCRaceId = 5,
+                            NPCClassId = 1,
+                            NPCRaceId = 4,
                             Name = "Test NPC",
                             ProfMod = 0,
                             StrMod = 0,
