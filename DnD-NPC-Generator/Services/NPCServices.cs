@@ -39,7 +39,7 @@ namespace DnD_NPC_Generator.Services
                 return;
             }
             Random d12 = new Random();
-            int newClass = d12.Next(classes.Count());
+            int newClass = d12.Next(1, classes.Count());
             npc.NPCClassId = classes.ElementAt(newClass).NPCClassId;
             npc.NPCClass = classes.ElementAt(newClass);
             return;
@@ -754,7 +754,7 @@ namespace DnD_NPC_Generator.Services
         public void SetRandomRace(ref NPC npc, List<NPCRace> races)
         {
             Random diceRoll = new Random();
-            int selection = diceRoll.Next(races.Count());
+            int selection = diceRoll.Next(1, races.Count());
             npc.NPCRace = races.ElementAt(selection);
             npc.NPCRaceId = races.ElementAt(selection).NPCRaceId;
         }
@@ -765,14 +765,69 @@ namespace DnD_NPC_Generator.Services
             npc.NPCRaceId = raceChoice.NPCRaceId;
         }
 
+        public void SetRaceChanges(ref List<int> stats, NPCRace race)
+        {
+            int str = 0;
+            int dex = 1;
+            int con = 2;
+            int intel = 3;
+            int wis = 4;
+            int cha = 5;
+            switch (race.NPCRaceId)
+            {
+                case 2://Dwarf
+                    stats[con] += 2;
+                    stats[wis] += 1;
+                    break;
+                case 3://Elf
+                    stats[dex] += 2;
+                    stats[intel] += 1;
+                    break;
+                case 4://Halfling
+                    stats[dex] += 2;
+                    stats[cha] += 1;
+                    break;
+                case 5://Human
+                    for (int i = 0; i < stats.Count; i++)
+                    {
+                        stats[i] += 1;
+                    }
+                    break;
+                case 6://Dragonborn
+                    stats[str] += 2;
+                    stats[cha] += 1;
+                    break;
+                case 7://Gnome
+                    stats[intel] += 2;
+                    stats[dex] += 1;
+                    break;
+                case 8://Half-Elf
+                    stats[cha] += 2;
+                    stats[wis] += 1;
+                    stats[con] += 1;
+                    break;
+                case 9://Half-Orc
+                    stats[str] += 2;
+                    stats[con] += 1;
+                    break;
+                case 10://Tiefling
+                    stats[cha] += 2;
+                    stats[intel] += 1;
+                    break;
+                default:
+                    break;
+            }
+        }
+
         public void GenerateNPC(ref NPC npc, List<NPCClass> classes, List<NPCRace> races, string classChoice, string statChoice)
         {
             if (npc == null) return;
 
             List<int> stats = GenerateStats(statChoice);//Get the stat lineup
             ChooseClass(ref npc, classes, classChoice);//Set the class
-            SetRandomRace(ref npc, races);
+            SetRandomRace(ref npc, races);//Set random race
             StatPriorities(ref stats, npc.NPCClass.Name);//Arrange stats by priority
+            SetRaceChanges(ref stats, npc.NPCRace);//Make chances based on race selection
             SetProficiencyMod(ref npc);//Set the save proficiency
             SetStats(ref npc, stats);//Set the stats
             SetSaveProficiencies(ref npc);
@@ -790,8 +845,9 @@ namespace DnD_NPC_Generator.Services
 
             List<int> stats = GenerateStats(statChoice);//Get the stat lineup
             ChooseClass(ref npc, classes, classChoice);//Set the class
-            SetSelectedRace(ref npc, raceChoice);
+            SetSelectedRace(ref npc, raceChoice);//Set selected race
             StatPriorities(ref stats, npc.NPCClass.Name);//Arrange stats by priority
+            SetRaceChanges(ref stats, npc.NPCRace);//Make chances based on race selection
             SetProficiencyMod(ref npc);//Set the save proficiency
             SetStats(ref npc, stats);//Set the stats
             SetSaveProficiencies(ref npc);
