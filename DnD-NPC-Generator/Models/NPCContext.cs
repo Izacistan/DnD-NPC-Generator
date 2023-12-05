@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace DnD_NPC_Generator.Models
 {
-    public class NPCContext : DbContext
+    public class NPCContext : IdentityDbContext<User>
     {
         public NPCContext(DbContextOptions<NPCContext> options) : base(options) { }
 
@@ -54,5 +56,36 @@ namespace DnD_NPC_Generator.Models
                 }
             );
         }
+
+        public static async Task CreateAdminUser(IServiceProvider servicesProvider)
+        { 
+            using (var scoped = servicesProvider.CreateScope()) 
+            { 
+                UserManager<User> userManager = scoped.ServiceProvider.GetRequiredService<UserManager<User>>();
+                RoleManager<IdentityRole> roleManager = scoped.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+                string username = "admin";
+                string pwd = "admin";
+                string roleName = "Admin";
+
+                // if role doesn't exist, create it
+                if (await roleManager.FindByNameAsync(roleName) == null) 
+                {
+                    await roleManager.CreateAsync(new IdentityRole(roleName));
+                }
+
+                if (await userManager.FindByNameAsync(username) == null) 
+                {
+                    User user = new User() { UserName = username };
+                    var result = await userManager.CreateAsync(user, pwd);
+                    if (result.Succeeded) 
+                    {
+                        await userManager.AddToRoleAsync(user, roleName);
+                    }
+                }
+            }
+        }
+
+
     }
 }

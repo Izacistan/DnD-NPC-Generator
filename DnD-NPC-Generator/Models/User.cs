@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using DnD_NPC_Generator.Services;
+using Microsoft.AspNetCore.Identity;
 
 namespace DnD_NPC_Generator.Models
 {
-    public class User
+    public class User : IdentityUser
     {
         public int UserId { get; set; }
 
