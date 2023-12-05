@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using DnD_NPC_Generator.Models;
 using System.Reflection.Metadata.Ecma335;
+using System.Linq;
 
 namespace DnD_NPC_Generator.Services
 {
@@ -38,9 +39,9 @@ namespace DnD_NPC_Generator.Services
                 return;
             }
             Random d12 = new Random();
-            int newClass = d12.Next(1, 13);
-            npc.NPCClassId = newClass;
-            npc.NPCClass = classes[newClass - 1];
+            int newClass = d12.Next(classes.Count());
+            npc.NPCClassId = classes.ElementAt(newClass).NPCClassId;
+            npc.NPCClass = classes.ElementAt(newClass);
             return;
         }
 
@@ -750,12 +751,46 @@ namespace DnD_NPC_Generator.Services
             }
         }
 
-        public void GenerateNPC(ref NPC npc, List<NPCClass> classes, string classChoice, string statChoice)
+        public void SetRandomRace(ref NPC npc, List<NPCRace> races)
+        {
+            Random diceRoll = new Random();
+            int selection = diceRoll.Next(races.Count());
+            npc.NPCRace = races.ElementAt(selection);
+            npc.NPCRaceId = races.ElementAt(selection).NPCRaceId;
+        }
+
+        public void SetSelectedRace(ref NPC npc, NPCRace raceChoice)
+        {
+            npc.NPCRace = raceChoice;
+            npc.NPCRaceId = raceChoice.NPCRaceId;
+        }
+
+        public void GenerateNPC(ref NPC npc, List<NPCClass> classes, List<NPCRace> races, string classChoice, string statChoice)
         {
             if (npc == null) return;
 
             List<int> stats = GenerateStats(statChoice);//Get the stat lineup
             ChooseClass(ref npc, classes, classChoice);//Set the class
+            SetRandomRace(ref npc, races);
+            StatPriorities(ref stats, npc.NPCClass.Name);//Arrange stats by priority
+            SetProficiencyMod(ref npc);//Set the save proficiency
+            SetStats(ref npc, stats);//Set the stats
+            SetSaveProficiencies(ref npc);
+            SetSubclass(ref npc);
+            if (npc.isSpellcaster)
+            {
+                SetSpellSlots(ref npc);
+            }
+
+        }
+
+        public void GenerateNPC(ref NPC npc, List<NPCClass> classes, NPCRace raceChoice, string classChoice, string statChoice)
+        {
+            if (npc == null) return;
+
+            List<int> stats = GenerateStats(statChoice);//Get the stat lineup
+            ChooseClass(ref npc, classes, classChoice);//Set the class
+            SetSelectedRace(ref npc, raceChoice);
             StatPriorities(ref stats, npc.NPCClass.Name);//Arrange stats by priority
             SetProficiencyMod(ref npc);//Set the save proficiency
             SetStats(ref npc, stats);//Set the stats
