@@ -819,10 +819,18 @@ namespace DnD_NPC_Generator.Services
             }
         }
 
+        public void SetRandomLevel(ref NPC npc)
+        {
+            Random roller = new Random();
+            int level = roller.Next(1, 20);
+            npc.Level= level;
+        }
+
         public void GenerateNPC(ref NPC npc, List<NPCClass> classes, List<NPCRace> races, string classChoice, string statChoice)
         {
             if (npc == null) return;
-
+            //This version should fire if the auto-generate is enabled.
+            if (npc.Level == 0) { SetRandomLevel(ref npc); }
             List<int> stats = GenerateStats(statChoice);//Get the stat lineup
             ChooseClass(ref npc, classes, classChoice);//Set the class
             SetRandomRace(ref npc, races);//Set random race
@@ -843,6 +851,7 @@ namespace DnD_NPC_Generator.Services
         {
             if (npc == null) return;
 
+            if (npc.Level == 0) { SetRandomLevel(ref npc); }
             List<int> stats = GenerateStats(statChoice);//Get the stat lineup
             ChooseClass(ref npc, classes, classChoice);//Set the class
             SetSelectedRace(ref npc, raceChoice);//Set selected race
