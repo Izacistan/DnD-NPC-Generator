@@ -2,6 +2,7 @@
 using DnD_NPC_Generator.Models;
 using System.Reflection.Metadata.Ecma335;
 using System.Linq;
+using System.Numerics;
 
 namespace DnD_NPC_Generator.Services
 {
@@ -25,17 +26,12 @@ namespace DnD_NPC_Generator.Services
             return StatList;
         }
 
-        public void ChooseClass(ref NPC npc, List<NPCClass> classes, string choice)
+        public void ChooseClass(ref NPC npc, List<NPCClass> classes, int choice)
         {
-            if (choice != "Random")
+            if (choice != 1)
             {
-                int choiceInt = 1;
-                if (choice != null)
-                {
-                    choiceInt = Int32.Parse(choice);
-                }
-                npc.NPCClassId = choiceInt;
-                npc.NPCClass = classes[choiceInt - 1];
+                npc.NPCClassId = choice;
+                npc.NPCClass = classes[choice - 1];
                 return;
             }
             Random d12 = new Random();
@@ -751,18 +747,20 @@ namespace DnD_NPC_Generator.Services
             }
         }
 
-        public void SetRandomRace(ref NPC npc, List<NPCRace> races)
+        public void SetRace(ref NPC npc, List<NPCRace> races, int raceChoice)
         {
-            Random diceRoll = new Random();
-            int selection = diceRoll.Next(1, races.Count());
-            npc.NPCRace = races.ElementAt(selection);
-            npc.NPCRaceId = races.ElementAt(selection).NPCRaceId;
-        }
-
-        public void SetSelectedRace(ref NPC npc, NPCRace raceChoice)
-        {
-            npc.NPCRace = raceChoice;
-            npc.NPCRaceId = raceChoice.NPCRaceId;
+            if (raceChoice != 1)
+            {
+                npc.NPCRace = races.ElementAt(Convert.ToInt32(raceChoice) - 1);
+                npc.NPCRaceId = Convert.ToInt32(raceChoice);
+            }
+            else
+            {
+                Random diceRoll = new Random();
+                int selection = diceRoll.Next(1, races.Count());
+                npc.NPCRace = races.ElementAt(selection);
+                npc.NPCRaceId = races.ElementAt(selection).NPCRaceId;
+            }
         }
 
         public void SetRaceChanges(ref List<int> stats, NPCRace race)
@@ -819,13 +817,13 @@ namespace DnD_NPC_Generator.Services
             }
         }
 
-        public void GenerateNPC(ref NPC npc, List<NPCClass> classes, List<NPCRace> races, string classChoice, string statChoice)
+        public void GenerateNPC(ref NPC npc, List<NPCClass> classes, List<NPCRace> races, int raceChoice, int classChoice, string statChoice)
         {
             if (npc == null) return;
 
             List<int> stats = GenerateStats(statChoice);//Get the stat lineup
             ChooseClass(ref npc, classes, classChoice);//Set the class
-            SetRandomRace(ref npc, races);//Set random race
+            SetRace(ref npc, races, raceChoice);//Set random race
             StatPriorities(ref stats, npc.NPCClass.Name);//Arrange stats by priority
             SetRaceChanges(ref stats, npc.NPCRace);//Make chances based on race selection
             SetProficiencyMod(ref npc);//Set the save proficiency
@@ -839,24 +837,5 @@ namespace DnD_NPC_Generator.Services
 
         }
 
-        public void GenerateNPC(ref NPC npc, List<NPCClass> classes, NPCRace raceChoice, string classChoice, string statChoice)
-        {
-            if (npc == null) return;
-
-            List<int> stats = GenerateStats(statChoice);//Get the stat lineup
-            ChooseClass(ref npc, classes, classChoice);//Set the class
-            SetSelectedRace(ref npc, raceChoice);//Set selected race
-            StatPriorities(ref stats, npc.NPCClass.Name);//Arrange stats by priority
-            SetRaceChanges(ref stats, npc.NPCRace);//Make chances based on race selection
-            SetProficiencyMod(ref npc);//Set the save proficiency
-            SetStats(ref npc, stats);//Set the stats
-            SetSaveProficiencies(ref npc);
-            SetSubclass(ref npc);
-            if (npc.isSpellcaster)
-            {
-                SetSpellSlots(ref npc);
-            }
-
-        }
     }
 } 
