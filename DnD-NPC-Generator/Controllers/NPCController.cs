@@ -5,6 +5,7 @@ using DnD_NPC_Generator.Sessions;
 using DnD_NPC_Generator.Services;
 using Microsoft.EntityFrameworkCore;
 using DnD_NPC_Generator.Repository;
+using System.Security.Claims;
 
 namespace DnD_NPC_Generator.Controllers
 {
@@ -12,7 +13,10 @@ namespace DnD_NPC_Generator.Controllers
     {
         private ILegionRepository legion { get; set; }
 
-        public NPCController(ILegionRepository legion) => this.legion = legion;
+        public NPCController(ILegionRepository legion)
+        {
+            this.legion = legion;
+        }
 
         [HttpGet]
         public IActionResult Index()
