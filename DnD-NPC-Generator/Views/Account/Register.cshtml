@@ -20,16 +20,25 @@
             <h2 class="subhead align-center">Sign-Up</h2>
             <form method="post" asp-action="Register" class="login-form">
                 <div class="login_label-input_wrap">
+                    <div asp-validation-summary="ModelOnly"></div>
 
-                    <label for="UserName">Username</label>
-                    <input asp-for="UserName" placeholder="Enter username"/>
-                    <span asp-validation-for="UserName" class="text-danger"></span>
+                    <div class="form-group">
+                        <label asp-for="UserName" class="control-label">Username</label>
+                        <input asp-for="UserName" class="form-control" placeholder="Enter username" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
 
-                    <label for="password">Password</label>
-                    <input asp-for="Password" type="password" name="password" placeholder="Enter your password">
-                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label">Password</label>
+                        <input type="passsword" type="password" asp-for="Password" class="form-control" placeholder="Enter password" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
 
-                    <input asp-for="ConfirmPassword" type="password" name="confirmPassword" placeholder="Enter your password">
+                    <div class="form-group">
+                        <label asp-for="ConfirmPassword" class="control-label">Confirm Password</label>
+                        <input type="password" asp-for="ConfirmPassword" class="form-control" placeholder="Confirm password" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
 
                     <input type="submit" name="submit-login" class="button-primary" value="Sign Up!">
                 </div>
