@@ -44,19 +44,6 @@ namespace DnD_NPC_Generator.Models
                 new NPCRace { NPCRaceId = 9, Name = "Half-Orc" },
                 new NPCRace { NPCRaceId = 10, Name = "Tiefling" }
             );
-
-            modelBuilder.Entity<NPC>().HasData(
-                new NPC
-                {
-                    NPCId = 1,
-                    Name = "Test NPC",
-                    NPCClassId = 2,
-                    NPCRaceId = 5,
-                    Level = 1,
-                    isSpellcaster = false,
-                    spellData = ""
-                }
-            );
         }
 
         public static async Task CreateAdminUser(IServiceProvider servicesProvider)
