@@ -10,6 +10,7 @@ namespace DnD_NPC_Generator.Repository
 {
     public interface ILegionRepository
     {
+        List<NPC> GetAllNpcsByUser(User user);
         List<NPC> GetAllNpcs();
         List<NPCClass> GetAllClasses();
         List<NPCRace> GetAllRaces();

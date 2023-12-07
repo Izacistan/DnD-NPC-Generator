@@ -17,6 +17,11 @@ namespace DnD_NPC_Generator.Repository
             this.context = context;
         }
 
+        public List<NPC> GetAllNpcsByUser(User user)
+        {
+            string id = user.Id;
+            return context.NPCs.Where(n => n.Owner == id).Include(n => n.NPCClass).Include(n => n.NPCRace).OrderBy(c => c.NPCId).ToList();
+        }
         public List<NPC> GetAllNpcs()
         {
             return context.NPCs.Include(n => n.NPCClass).Include(n => n.NPCRace).OrderBy(c => c.NPCId).ToList();

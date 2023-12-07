@@ -6,35 +6,46 @@ using DnD_NPC_Generator.Services;
 using Microsoft.EntityFrameworkCore;
 using DnD_NPC_Generator.Repository;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DnD_NPC_Generator.Controllers
 {
+    [Authorize]
     public class NPCController : Controller
     {
         private ILegionRepository legion { get; set; }
+        private UserManager<User> userManager { get; set; }
+        private string userId { get; set; }
 
-        public NPCController(ILegionRepository legion)
+        public NPCController(ILegionRepository legion, UserManager<User> mngr)
         {
             this.legion = legion;
+            this.userManager = mngr;
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var user = await userManager.GetUserAsync(HttpContext.User);
             var model = new NPCListView()
             {
-                NPCs = this.legion.GetAllNpcs()
+                NPCs = this.legion.GetAllNpcsByUser(user)
             };
+            ViewBag.User = user;
             return View(model);
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
             ViewBag.Action = "Add";
             ViewBag.Classes = this.legion.GetAllClasses();
             ViewBag.Races = this.legion.GetAllRaces();
-            return View("Edit", new NPC());
+            NPC model = new NPC();
+            User user = await userManager.GetUserAsync(HttpContext.User);
+            model.Owner = user.Id;
+            return View("Edit", model);
         }
 
         [HttpGet]
