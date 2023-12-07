@@ -31,14 +31,14 @@ namespace DnD_NPC_Generator.Services
             if (choice != 1)
             {
                 npc.NPCClassId = choice;
-                npc.NPCClass = classes[choice - 1];
+                npc.NPCClass = classes.ElementAt(choice - 1);
                 return;
             }
             Random d12 = new Random();
             int newClass = d12.Next(1, classes.Count());
             npc.NPCClassId = classes.ElementAt(newClass).NPCClassId;
             npc.NPCClass = classes.ElementAt(newClass);
-            return;
+            System.Diagnostics.Debug.WriteLine("CLass set as " + npc.NPCClass.Name);
         }
 
         public void Gen4d6d1(ref List<int> stats)
@@ -46,7 +46,7 @@ namespace DnD_NPC_Generator.Services
             Random dSix = new Random();
             List<int> FourDSix = new List<int>();
             int roll = 0;
-            int smallest = 10;
+            int smallest = 19;
             int stat = 0;
 
             for (int i = 0; i < 6; i++)//For 6 different stat blocks
@@ -73,8 +73,10 @@ namespace DnD_NPC_Generator.Services
                 //End dice roll loop for one stat block
 
                 stat = 0;
-                smallest = 10;
+                smallest = 19;
             }
+            stats.Sort();
+            stats.Reverse();
             //End dice roll loop for all stat blocks. Should return referenced list
         }
 
@@ -100,116 +102,114 @@ namespace DnD_NPC_Generator.Services
             int wisdom = 0;
             int charisma = 0;
 
-            stats.Sort();//Sorted from smallest to largest
-
             switch (NPCclass)
             {
                 case "Barbarian":
-                    constitution = stats.ElementAt(0);
-                    dexterity = stats.ElementAt(1);
-                    strength = stats.ElementAt(2);
-                    wisdom = stats.ElementAt(3);
-                    charisma = stats.ElementAt(4);
-                    intelligence = stats.ElementAt(5);
+                    constitution = stats[0];
+                    dexterity = stats[1];
+                    strength = stats[2];
+                    wisdom = stats[3];
+                    charisma = stats[4];
+                    intelligence = stats[5];
                     break;
 
                 case "Bard":
-                    charisma = stats.ElementAt(0);
-                    dexterity = stats.ElementAt(1);
-                    constitution = stats.ElementAt(2);
-                    wisdom = stats.ElementAt(3);
-                    intelligence = stats.ElementAt(4);
-                    strength = stats.ElementAt(5);
+                    charisma = stats[0];
+                    dexterity = stats[1];
+                    constitution = stats[2];
+                    wisdom = stats[3];
+                    intelligence = stats[4];
+                    strength = stats[5];
                     break;
 
                 case "Cleric":
-                    wisdom = stats.ElementAt(0);
-                    constitution = stats.ElementAt(1);
-                    dexterity = stats.ElementAt(2);
-                    strength = stats.ElementAt(3);
-                    charisma = stats.ElementAt(4);
-                    intelligence = stats.ElementAt(5);
+                    wisdom = stats[0];
+                    constitution = stats[1];
+                    dexterity = stats[2];
+                    strength = stats[3];
+                    charisma = stats[4];
+                    intelligence = stats[5];
                     break;
 
                 case "Druid":
-                    wisdom = stats.ElementAt(0);
-                    constitution = stats.ElementAt(1);
-                    dexterity = stats.ElementAt(2);
-                    charisma = stats.ElementAt(3);
-                    intelligence = stats.ElementAt(4);
-                    strength = stats.ElementAt(5);
+                    wisdom = stats[0];
+                    constitution = stats[1];
+                    dexterity = stats[2];
+                    charisma = stats[3];
+                    intelligence = stats[4];
+                    strength = stats[5];
                     break;
 
                 case "Fighter":
-                    strength = stats.ElementAt(0);
-                    constitution = stats.ElementAt(1);
-                    wisdom = stats.ElementAt(2);
-                    charisma = stats.ElementAt(3);
-                    dexterity = stats.ElementAt(4);
-                    intelligence = stats.ElementAt(5);
+                    strength = stats[0];
+                    constitution = stats[1];
+                    wisdom = stats[2];
+                    charisma = stats[3];
+                    dexterity = stats[4];
+                    intelligence = stats[5];
                     break;
 
                 case "Monk":
-                    dexterity = stats.ElementAt(0);
-                    wisdom = stats.ElementAt(1);
-                    constitution = stats.ElementAt(2);
-                    intelligence = stats.ElementAt(3);
-                    charisma = stats.ElementAt(4);
-                    strength = stats.ElementAt(5);
+                    dexterity = stats[0];
+                    wisdom = stats[1];
+                    constitution = stats[2];
+                    intelligence = stats[3];
+                    charisma = stats[4];
+                    strength = stats[5];
                     break;
 
                 case "Paladin":
-                    strength = stats.ElementAt(0);
-                    constitution = stats.ElementAt(1);
-                    charisma = stats.ElementAt(2);
-                    wisdom = stats.ElementAt(3);
-                    intelligence = stats.ElementAt(4);
-                    dexterity = stats.ElementAt(5);
+                    strength = stats[0];
+                    constitution = stats[1];
+                    charisma = stats[2];
+                    wisdom = stats[3];
+                    intelligence = stats[4];
+                    dexterity = stats[5];
                     break;
 
                 case "Ranger":
-                    dexterity = stats.ElementAt(0);
-                    wisdom = stats.ElementAt(1);
-                    constitution = stats.ElementAt(2);
-                    intelligence = stats.ElementAt(3);
-                    strength = stats.ElementAt(4);
-                    charisma = stats.ElementAt(5);
+                    dexterity = stats[0];
+                    wisdom = stats[1];
+                    constitution = stats[2];
+                    intelligence = stats[3];
+                    strength = stats[4];
+                    charisma = stats[5];
                     break;
 
                 case "Rogue":
-                    dexterity = stats.ElementAt(0);
-                    intelligence = stats.ElementAt(1);
-                    constitution = stats.ElementAt(2);
-                    charisma = stats.ElementAt(3);
-                    wisdom = stats.ElementAt(4);
-                    strength = stats.ElementAt(5);
+                    dexterity = stats[0];
+                    intelligence = stats[1];
+                    constitution = stats[2];
+                    charisma = stats[3];
+                    wisdom = stats[4];
+                    strength = stats[5];
                     break;
 
                 case "Sorcerer":
-                    charisma = stats.ElementAt(0);
-                    dexterity = stats.ElementAt(1);
-                    constitution = stats.ElementAt(2);
-                    wisdom = stats.ElementAt(3);
-                    intelligence = stats.ElementAt(4);
-                    strength = stats.ElementAt(5);
+                    charisma = stats[0];
+                    dexterity = stats[1];
+                    constitution = stats[2];
+                    wisdom = stats[3];
+                    intelligence = stats[4];
+                    strength = stats[5];
                     break;
 
                 case "Warlock":
-                    charisma = stats.ElementAt(0);
-                    dexterity = stats.ElementAt(1);
-                    constitution = stats.ElementAt(2);
-                    wisdom = stats.ElementAt(3);
-                    intelligence = stats.ElementAt(4);
-                    strength = stats.ElementAt(5);
+                    charisma = stats[0];
+                    dexterity = stats[1];
+                    constitution = stats[2];
+                    wisdom = stats[3];
+                    intelligence = stats[4];
+                    strength = stats[5];
                     break;
 
                 case "Wizard":
-                    intelligence = stats.ElementAt(0);
-                    dexterity = stats.ElementAt(1);
-                    constitution = stats.ElementAt(2);
-                    wisdom = stats.ElementAt(3);
-                    charisma = stats.ElementAt(4);
-                    strength = stats.ElementAt(5);
+                    intelligence = stats[0];
+                    dexterity = stats[1];
+                    constitution = stats[2];
+                    wisdom = stats[3];
+                    charisma = stats[4];
+                    strength = stats[5];
                     break;
             }
             stats.Clear();//clear the stats lineup
@@ -826,22 +826,28 @@ namespace DnD_NPC_Generator.Services
 
         public void GenerateNPC(ref NPC npc, List<NPCClass> classes, List<NPCRace> races, int raceChoice, int classChoice, string statChoice)
         {
+            System.Diagnostics.Debug.WriteLine("******************************************************");
+            System.Diagnostics.Debug.WriteLine("Imported ints and strings are Race: " + raceChoice + " | Class: " + classChoice + " | Stats: " + statChoice);
             if (npc == null) return;
             //This version should fire if the auto-generate is enabled.
             if (npc.Level == 0) { SetRandomLevel(ref npc); }
             List<int> stats = GenerateStats(statChoice);//Get the stat lineup
+            System.Diagnostics.Debug.WriteLine("Stats generated as " + stats[0] + " " + stats[1] + " " + stats[2] + " " + stats[3] + " " + stats[4] + " " + stats[5]);
             ChooseClass(ref npc, classes, classChoice);//Set the class
             SetRace(ref npc, races, raceChoice);//Set random race
             StatPriorities(ref stats, npc.NPCClass.Name);//Arrange stats by priority
+            System.Diagnostics.Debug.WriteLine("Stats rearranged as " + stats[0] + " " + stats[1] + " " + stats[2] + " " + stats[3] + " " + stats[4] + " " + stats[5]);
             SetRaceChanges(ref stats, npc.NPCRace);//Make chances based on race selection
-            SetProficiencyMod(ref npc);//Set the save proficiency
+            System.Diagnostics.Debug.WriteLine("Stats after race as " + stats[0] + " " + stats[1] + " " + stats[2] + " " + stats[3] + " " + stats[4] + " " + stats[5]);
             SetStats(ref npc, stats);//Set the stats
+            SetProficiencyMod(ref npc);//Set the save proficiency
             SetSaveProficiencies(ref npc);
             SetSubclass(ref npc);
             if (npc.isSpellcaster)
             {
                 SetSpellSlots(ref npc);
             }
+            System.Diagnostics.Debug.WriteLine("******************************************************");
         }
     }
 } 
