@@ -31,7 +31,7 @@ namespace DnD_NPC_Generator.Services
             if (choice != 1)
             {
                 npc.NPCClassId = choice;
-                npc.NPCClass = classes.ElementAt(choice - 1);
+                npc.NPCClass = classes[choice - 1];
                 return;
             }
             Random d12 = new Random();
@@ -751,7 +751,7 @@ namespace DnD_NPC_Generator.Services
         {
             if (raceChoice != 1)
             {
-                npc.NPCRace = races.ElementAt(Convert.ToInt32(raceChoice) - 1);
+                npc.NPCRace = races.ElementAt(raceChoice - 1);
                 npc.NPCRaceId = Convert.ToInt32(raceChoice);
             }
             else
@@ -834,7 +834,9 @@ namespace DnD_NPC_Generator.Services
             List<int> stats = GenerateStats(statChoice);//Get the stat lineup
             System.Diagnostics.Debug.WriteLine("Stats generated as " + stats[0] + " " + stats[1] + " " + stats[2] + " " + stats[3] + " " + stats[4] + " " + stats[5]);
             ChooseClass(ref npc, classes, classChoice);//Set the class
+            System.Diagnostics.Debug.WriteLine("Class generated as " + npc.NPCClass.Name);
             SetRace(ref npc, races, raceChoice);//Set random race
+            System.Diagnostics.Debug.WriteLine("Race generated as " + npc.NPCRace.Name);
             StatPriorities(ref stats, npc.NPCClass.Name);//Arrange stats by priority
             System.Diagnostics.Debug.WriteLine("Stats rearranged as " + stats[0] + " " + stats[1] + " " + stats[2] + " " + stats[3] + " " + stats[4] + " " + stats[5]);
             SetRaceChanges(ref stats, npc.NPCRace);//Make chances based on race selection
@@ -843,6 +845,7 @@ namespace DnD_NPC_Generator.Services
             SetProficiencyMod(ref npc);//Set the save proficiency
             SetSaveProficiencies(ref npc);
             SetSubclass(ref npc);
+            System.Diagnostics.Debug.WriteLine("Subclass generated as " + npc.Subclass);
             if (npc.isSpellcaster)
             {
                 SetSpellSlots(ref npc);
