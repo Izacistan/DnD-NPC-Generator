@@ -824,6 +824,40 @@ namespace DnD_NPC_Generator.Services
             npc.Level= level;
         }
 
+        public void SetHitPoints(ref NPC npc)
+        {
+            npc.HitDieCount = npc.Level;
+
+            if (npc.NPCClass.Name == "Barbarian") {
+                npc.HitDie = 12; 
+            } else if (npc.NPCClass.Name == "Fighter" || npc.NPCClass.Name == "Ranger" || npc.NPCClass.Name == "Paladin")
+            {
+                npc.HitDie = 10;
+            } else if (npc.NPCClass.Name == "Wizard" || npc.NPCClass.Name == "Sorcerer")
+            {
+                npc.HitDie = 6;
+            } else
+            {
+                npc.HitDie = 8;
+            }
+
+            Random dice = new Random();
+            int hp = npc.HitDie;
+
+            if (npc.Level > 1)
+            {
+                for (int i = 1; i < npc.Level; i++)
+                {
+                    hp += dice.Next(1, npc.HitDie);
+                }
+            }
+
+            hp += npc.ChaMod * npc.Level;
+
+            npc.HitPoints = hp;
+
+        }
+
         public void GenerateNPC(ref NPC npc, List<NPCClass> classes, List<NPCRace> races, int raceChoice, int classChoice, string statChoice)
         {
             System.Diagnostics.Debug.WriteLine("******************************************************");
@@ -845,6 +879,7 @@ namespace DnD_NPC_Generator.Services
             SetProficiencyMod(ref npc);//Set the save proficiency
             SetSaveProficiencies(ref npc);
             SetSubclass(ref npc);
+            SetHitPoints(ref npc);
             System.Diagnostics.Debug.WriteLine("Subclass generated as " + npc.Subclass);
             if (npc.isSpellcaster)
             {
