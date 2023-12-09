@@ -61,6 +61,17 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapAreaControllerRoute(
+        name: "admin",
+        areaName: "Admin",
+        pattern: "Admin/{controller=Admin}/{action=Index}/{id?}");
+
+    // Your existing routes go here
+});
+
+
 await NPCContext.CreateAdminUser(app.Services);
 
 app.Run();
