@@ -858,6 +858,33 @@ namespace DnD_NPC_Generator.Services
 
         }
 
+        public void SetArmorClass(ref NPC npc)
+        {
+            int ACbase = 10;
+            if (npc.NPCClass.Name == "Barbarian")
+            {
+                npc.AC = ACbase + npc.ConMod + npc.DexMod;
+            }
+            else if (npc.NPCClass.Name == "Monk")
+            {
+                npc.AC = ACbase + npc.DexMod + npc.WisMod;
+            }
+            else if (npc.NPCClass.Name == "Fighter" || npc.NPCClass.Name == "Paladin")
+            {
+                npc.AC = 18; //Chain armor and shield or Plate armor
+            }
+            else if (npc.NPCClass.Name == "Cleric" || npc.NPCClass.Name == "Ranger")
+            {
+                if (npc.DexMod > 2) { npc.AC = 16; } //Breastplate
+                else { npc.AC = 14 + npc.DexMod; }
+            }
+            else if (npc.NPCClass.Name == "Bard" || npc.NPCClass.Name == "Druid" || npc.NPCClass.Name == "Rogue" || npc.NPCClass.Name == "Warlock")
+            {
+                npc.AC = 11 + npc.DexMod;
+            }
+            else { npc.AC = ACbase + npc.DexMod; }
+        }
+
         public void GenerateNPC(ref NPC npc, List<NPCClass> classes, List<NPCRace> races, int raceChoice, int classChoice, string statChoice)
         {
             System.Diagnostics.Debug.WriteLine("******************************************************");
@@ -881,6 +908,7 @@ namespace DnD_NPC_Generator.Services
             SetSubclass(ref npc);
             SetHitPoints(ref npc);
             System.Diagnostics.Debug.WriteLine("Subclass generated as " + npc.Subclass);
+            SetArmorClass(ref npc);
             if (npc.isSpellcaster)
             {
                 SetSpellSlots(ref npc);
