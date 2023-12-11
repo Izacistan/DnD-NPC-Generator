@@ -1,8 +1,10 @@
-﻿@model NPCListView
+﻿@using DnD_NPC_Generator.Models
+@model DnD_NPC_Generator.Models.NPCListView
+
 @section Styles {
     <link rel="stylesheet" href="~/css/npc-view.css" />"
 }
-<a asp-action="Index" class="btn btn-primary">Back to NPC List</a>
+
 <h1>NPC's List</h1>
 <div id="npc-cards">
     @foreach (NPC npc in Model.NPCs)
