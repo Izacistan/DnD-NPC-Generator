@@ -54,7 +54,7 @@ namespace DnD_NPC_Generator.Models
                 RoleManager<IdentityRole> roleManager = scoped.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
                 string username = "admin";
-                string pwd = "admin";
+                string pwd = "AdminPass";
                 string roleName = "Admin";
 
                 // if role doesn't exist, create it
