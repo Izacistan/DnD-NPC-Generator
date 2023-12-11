@@ -5,10 +5,20 @@
     <link rel="stylesheet" href="~/css/npc-view.css" />"
 }
 
-<h1>NPC's List</h1>
+<h1>Administrator View</h1>
+<p>From this view you can see all of the NPCs, regardless of owner.</p>
+<h2>List of NPCs</h2>
 <div id="npc-cards">
-    @foreach (NPC npc in Model.NPCs)
+    @if (Model.NPCs != null && Model.NPCs.Any())
     {
-        <partial name="_NPCViewPanel" model="@npc" />
+        foreach (NPC npc in Model.NPCs)
+        {
+            <partial name="_NPCViewPanel" model="@npc" />
+        }
+    }
+    else
+    {
+        <p>No NPCs found.</p>
     }
 </div>
+
