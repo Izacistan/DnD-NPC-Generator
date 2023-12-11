@@ -23,9 +23,11 @@ builder.Services.AddScoped<DNDConsumer>();
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<NPCContext>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("NPCContext")));
+//builder.Services.AddDbContext<NPCContext>(options =>
+//    options.UseSqlServer(
+//        builder.Configuration.GetConnectionString("NPCContext")));
+
+builder.Services.AddDbContext<NPCContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING")));
 
 // Setup Identity
 builder.Services.AddIdentity<User, IdentityRole>(options =>
