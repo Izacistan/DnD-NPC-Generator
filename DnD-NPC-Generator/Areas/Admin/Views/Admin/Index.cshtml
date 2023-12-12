@@ -11,10 +11,38 @@
 <div id="npc-cards">
     @if (Model.NPCs != null && Model.NPCs.Any())
     {
-        foreach (NPC npc in Model.NPCs)
-        {
-            <partial name="_NPCViewPanel" model="@npc" />
-        }
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Owned By</th>
+                    <th>Name</th>
+                    <th>Class</th>
+                    <th>Race</th>
+                    <th>Level</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var NPC in Model.NPCs.Select((value, i) => new { i, value }))
+                {
+                    <tr>
+                        <td>@ViewBag.UserNameList[NPC.i]</td>
+                        <td>@NPC.value.Name</td>
+                        <td>@NPC.value.NPCClass.Name</td>
+                        <td>@NPC.value.NPCRace.Name</td>
+                        <td>@NPC.value.Level</td>
+                        <td>
+                            <a asp-controller="NPC" asp-action="Edit" asp-route-id="@NPC.value.NPCId">Edit</a>
+                            <a asp-controller="NPC" asp-action="Delete" asp-route-id="@NPC.value.NPCId">Delete</a>
+                            <form asp-action="Add" method="post">
+                                <button type="submit" class="btn btn-primary">Add to View</button>
+                                <input type="hidden" asp-for="@NPC.value.NPCId" />
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     }
     else
     {
