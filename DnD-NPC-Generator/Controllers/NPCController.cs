@@ -158,6 +158,11 @@ namespace DnD_NPC_Generator.Controllers
 
             var session = new NPCSession(HttpContext.Session);
             var npcs = session.GetViewNPCs();
+            if (npcs.Any(i => i.NPCId == character.NPCId))
+            {
+                session.RemoveViewNPCs();
+                npcs.RemoveAll(i => i.NPCId == character.NPCId);
+            }
             npcs.Add(character);
             session.SetViewNPCs(npcs);
 
