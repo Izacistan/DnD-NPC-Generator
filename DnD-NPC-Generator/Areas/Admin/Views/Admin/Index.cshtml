@@ -1,5 +1,6 @@
 ﻿@using DnD_NPC_Generator.Models
 @model DnD_NPC_Generator.Models.NPCListView
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @section Styles {
     <link rel="stylesheet" href="~/css/npc-view.css" />"
@@ -23,21 +24,17 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var NPC in Model.NPCs.Select((value, i) => new { i, value }))
+                @for (int i = 0; i < Model.NPCs.Count(); i++)
                 {
                     <tr>
-                        <td>@ViewBag.UserNameList[NPC.i]</td>
-                        <td>@NPC.value.Name</td>
-                        <td>@NPC.value.NPCClass.Name</td>
-                        <td>@NPC.value.NPCRace.Name</td>
-                        <td>@NPC.value.Level</td>
+                        <td>@ViewBag.UserNameList[i]</td>
+                        <td>@Model.NPCs[i].Name</td>
+                        <td>@Model.NPCs[i].NPCClass.Name</td>
+                        <td>@Model.NPCs[i].NPCRace.Name</td>
+                        <td>@Model.NPCs[i].Level</td>
                         <td>
-                            <a asp-controller="NPC" asp-action="Edit" asp-route-id="@NPC.value.NPCId">Edit</a>
-                            <a asp-controller="NPC" asp-action="Delete" asp-route-id="@NPC.value.NPCId">Delete</a>
-                            <form asp-action="Add" method="post">
-                                <button type="submit" class="btn btn-primary">Add to View</button>
-                                <input type="hidden" asp-for="@NPC.value.NPCId" />
-                            </form>
+                            <a asp-area="" asp-controller="NPC" asp-action="Edit" asp-route-id="@Model.NPCs[i].NPCId">Edit</a>
+                            <a asp-area="" asp-controller="NPC" asp-action="Delete" asp-route-id="@Model.NPCs[i].NPCId">Delete</a>
                         </td>
                     </tr>
                 }
