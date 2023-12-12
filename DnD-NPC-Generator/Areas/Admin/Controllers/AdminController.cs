@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json.Linq;
+using DnD_NPC_Generator.Repository;
+using DnD_NPC_Generator.Sessions;
 
 
 namespace DnD_NPC_Generator.Areas.Admin.Controllers
@@ -12,10 +14,12 @@ namespace DnD_NPC_Generator.Areas.Admin.Controllers
     public class AdminController : Controller
     {
         private readonly NPCContext context;
+        private ILegionRepository legion { get; set; }
 
-        public AdminController(NPCContext dbContext)
+        public AdminController(NPCContext dbContext, ILegionRepository legion)
         {
             context = dbContext;
+            this.legion = legion;
         }
 
         [Area("Admin")]
@@ -30,7 +34,7 @@ namespace DnD_NPC_Generator.Areas.Admin.Controllers
 
         public List<NPC> GetAllNpcs()
         {
-            return context.NPCs.Include(n => n.NPCClass).Include(n => n.NPCRace).OrderBy(c => c.NPCId).ToList();
+            return legion.GetAllNpcs();
         }
 
         public List<string> GetAllUserNames(List<NPC> npcList)
