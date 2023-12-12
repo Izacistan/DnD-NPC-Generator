@@ -29,9 +29,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item">
+                        @* <li class="nav-item">
                             <a class="nav-link text-dark"  asp-area="Admin" asp-controller="Admin" asp-action="Index">Admin</a>
-                        </li>
+                        </li> *@
                         
                         <!-- REMOVE LATER -->
                         <li class="nav-item">
@@ -40,7 +40,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="NPC" asp-action="Display">View NPCs Data</a>
                         </li>
-                        <!-- Login Button w/ IF Statement -->
+                       @*  <!-- Login Button w/ IF Statement -->
                         @using Microsoft.AspNetCore.Identity
                         @using DnD_NPC_Generator.Models;
                         @inject SignInManager<User> signInManager
@@ -61,7 +61,41 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
                             </li>
+                        } *@
+                        <!-- Login Button w/ IF Statement -->
+                        @using Microsoft.AspNetCore.Identity
+                        @using DnD_NPC_Generator.Models
+                        @inject SignInManager<User> signInManager
+                        @inject UserManager<User> userManager
+
+                        @if (signInManager.IsSignedIn(User)) // User is already logged in
+                        {
+                            @if (User.IsInRole("Admin")) // User is ALSO an Admin
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Admin" asp-controller="Admin" asp-action="Index">Admin</a>
+                                </li>
+                            }
+
+                            <li>
+                                <form method="post" asp-action="LogOut" asp-controller="Account" asp-area="">
+                                    <input type="submit" value="Log Out">
+                                    <span class="text-light">@User.Identity.Name</span>
+                                </form>
+                            </li>
+
+                            
                         }
+                        else // Anonymous User/not signed-in
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                        }
+
                     </ul>
                 </div>
             </div>
