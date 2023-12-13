@@ -27,7 +27,11 @@ builder.Services.AddControllersWithViews();
 //    options.UseSqlServer(
 //        builder.Configuration.GetConnectionString("NPCContext")));
 
-builder.Services.AddDbContext<NPCContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING")));
+builder.Services.AddDbContext<NPCContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING"),
+    sqlServerOptionsAction: sqlOptions =>
+    {
+        sqlOptions.EnableRetryOnFailure();
+    }));
 
 // Setup Identity
 builder.Services.AddIdentity<User, IdentityRole>(options =>
